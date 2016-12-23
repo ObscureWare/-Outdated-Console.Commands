@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ObscureWare.Console.Commands</id>
+    <version>$version$</version>
+    <title>ObscureWare.Console.Commands</title>
+    <authors>Sebastian Gruchacz</authors>
+    <owners>ObscureWare Solutions</owners>
+    <licenseUrl>https://github.com/ObscureWare/Console.Commands/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ObscureWare/Console.Commands/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This library is robust, flexible console command engine that cooperates with our Console.Core coloring engine. It supports various types of syntax and provides separation of models, commands and console output, which is good for proper unit testing.</description>
+    <releaseNotes>Version BETA. Will be largely extended with much more capabilities.</releaseNotes>
+    <copyright>Copyright © Sebastian Gruchacz 2016</copyright>
+    <tags>Console,Colors,Management</tags>
+  </metadata>
+</package>
