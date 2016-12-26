@@ -13,8 +13,9 @@ namespace ConsoleApplication1.Commands
         public void Execute(object contextObject, ICommandOutput output, object runtimeModel)
         {
             ChangeDirCommandModel model = runtimeModel as ChangeDirCommandModel;
-            switch (model?.Target.Trim())
+            switch (model?.Target?.Trim())
             {
+                case null:
                 case "":
                 case ".":
                 {
