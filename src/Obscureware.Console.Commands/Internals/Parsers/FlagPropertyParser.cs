@@ -28,6 +28,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Obscureware.Console.Commands.Internals.Parsers
 {
+    using System;
     using System.Reflection;
     using Model;
 
@@ -42,9 +43,18 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         }
 
         /// <inheritdoc />
-        protected override void DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
+        protected override IParsingResult DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
         {
-            this.TargetProperty.SetValue(model, true);
+            try
+            {
+                this.TargetProperty.SetValue(model, true);
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception e)
+            {
+                return new ParsingFailure(e.Message);
+            }
         }
     }
 }

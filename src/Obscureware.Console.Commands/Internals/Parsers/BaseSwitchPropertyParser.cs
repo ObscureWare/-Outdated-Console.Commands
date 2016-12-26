@@ -51,7 +51,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             this._expectedArguments = expectedArguments;
         }
 
-        protected override void DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
+        protected override IParsingResult DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
         {
             // read more arguments if necessary
             if (options.OptionArgumentMode == CommandOptionArgumentMode.Separated)
@@ -63,16 +63,20 @@ namespace Obscureware.Console.Commands.Internals.Parsers
                     optionArguments[i] = this.SafelyGetNextArg(args, ref argIndex);
                 }
 
-                this.DoApplySwitch(model, optionArguments, options);
+                return this.DoApplySwitch(model, optionArguments, options);
             }
             else if (options.OptionArgumentMode == CommandOptionArgumentMode.Joined)
             {
                 string firstArg = this.SafelyGetNextArg(args, ref argIndex);
                 string[] parts = firstArg.Split(options.OptionArgumentJoinCharacater);
+                if (parts.Length < 2)
+                {
+                    return new ParsingFailure($"Expected argument syntax is '{parts[0]}{options.OptionArgumentJoinCharacater}<some_value>'.");
+                }
 
-                this.DoApplySwitch(model, parts.Skip(1).ToArray(), options); // will support multi-values as well...
+                return this.DoApplySwitch(model, parts.Skip(1).ToArray(), options); // will support multi-values as well...
             }
-            else
+            else if (options.OptionArgumentMode == CommandOptionArgumentMode.Merged)
             {
                 if (this._expectedArguments != 1)
                 {
@@ -85,8 +89,10 @@ namespace Obscureware.Console.Commands.Internals.Parsers
                 string[] combinations = CommandsSyntaxHelpers.Combine(options.SwitchCharacters, this._switchLetters, (s, s1) => s + s1).ToArray();
                 string remainder = firstArg.CutLeftFirst(combinations);
 
-                this.DoApplySwitch(model, new []{ remainder }, options);
+                return this.DoApplySwitch(model, new []{ remainder }, options);
             }
+
+            throw new ArgumentOutOfRangeException(nameof(options), nameof(options.OptionArgumentMode));
         }
 
         private string SafelyGetNextArg(string[] args, ref int argIndex)
@@ -99,10 +105,10 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             return args[argIndex++];
         }
 
-        protected abstract void DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions);
+        protected abstract IParsingResult DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions);
 
         public abstract IEnumerable<string> GetValidValues();
 
-        public abstract void ApplyDefault(CommandModel model);
+        public abstract IParsingResult ApplyDefault(CommandModel model);
     }
 }

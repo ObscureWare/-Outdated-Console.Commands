@@ -277,6 +277,7 @@ namespace Obscureware.Console.Commands.Internals
             while (argIndex < args.Length)
             {
                 string arg = args[argIndex].Trim();
+                IParsingResult result;
 
                 // need to skip unnamed parameters there are just exactly like one of prefixes (i.e. - single slash or backslash)
                 if (flagSwitchPrefixes.All(p => p != arg) && flagSwitchPrefixes.Any(p => arg.StartsWith(p)))
@@ -284,7 +285,7 @@ namespace Obscureware.Console.Commands.Internals
                     var propertyParser = this.FindProperty(options, arg);
                     if (propertyParser == null)
                     {
-                        output.PrintWarning($"Command's agument is not valid => \"{arg}\".");
+                        output.PrintWarning($"Command's argument is not valid => \"{arg}\".");
                         return null;
                     }
 
@@ -295,7 +296,7 @@ namespace Obscureware.Console.Commands.Internals
                     }
 
                     usedProperties.Add(propertyParser.TargetProperty.Name);
-                    propertyParser.Apply(options, model, args, ref argIndex);
+                    result = propertyParser.Apply(options, model, args, ref argIndex);
                 }
                 else
                 {
@@ -307,7 +308,13 @@ namespace Obscureware.Console.Commands.Internals
                     }
 
                     usedProperties.Add(propertyParser.TargetProperty.Name);
-                    propertyParser.Apply(options, model, args, ref argIndex);
+                    result = propertyParser.Apply(options, model, args, ref argIndex);
+                }
+
+                if (!result.IsFine)
+                {
+                    output.PrintWarning($"Parsing error => {result.Message}");
+                    return null;
                 }
 
                 argIndex++;
@@ -370,11 +377,46 @@ namespace Obscureware.Console.Commands.Internals
 
 
             // Switches
+
             foreach (var switchPrefix in options.SwitchCharacters)
             {
-                string cleanFlag = argSyntax.CutLeftFirst(switchPrefix);
-                BaseSwitchPropertyParser parser = this._switchParsers.FirstOrDefault(p => p.Key.Equals(cleanFlag)).Value;
-                return parser;
+                switch (options.OptionArgumentMode)
+                {
+                    case CommandOptionArgumentMode.Separated:
+                    {
+                        string cleanFlag = argSyntax.CutLeftFirst(switchPrefix);
+                        var parser = this._switchParsers.FirstOrDefault(p => p.Key.Equals(cleanFlag)).Value;
+                        if (parser != null)
+                        {
+                            return parser;
+                        }
+                        break;
+                    }
+                    case CommandOptionArgumentMode.Merged:
+                    {
+                        var availableSwitches = this._switchParsers.Keys.OrderByDescending(k => k.Length);
+                        string cleanFlag = argSyntax.CutLeftFirst(switchPrefix);
+                        string matchingKey = availableSwitches.FirstOrDefault(sw => cleanFlag.StartsWith(sw));
+                        if (matchingKey != null)
+                        {
+                            return this._switchParsers[matchingKey];
+                        }
+                        break;
+                    }
+                    case CommandOptionArgumentMode.Joined:
+                    {
+                        string[] parts = argSyntax.Split(options.OptionArgumentJoinCharacater);
+                        string cleanFlag = parts[0].CutLeftFirst(switchPrefix);
+                        var parser =  this._switchParsers.FirstOrDefault(p => p.Key.Equals(cleanFlag)).Value;
+                        if (parser != null)
+                        {
+                            return parser;
+                        }
+                        break;
+                    }
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(options), nameof(options.OptionArgumentMode));
+                }
             }
 
             return null;

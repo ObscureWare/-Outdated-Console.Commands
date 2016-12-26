@@ -53,7 +53,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         }
 
         /// <inheritdoc />
-        protected override void DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions)
+        protected override IParsingResult DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions)
         {
             if (pOptions == null)
             {
@@ -63,11 +63,33 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             {
                 throw new ArgumentException("Value cannot be an empty collection.", nameof(switchArguments));
             }
-            string enumText = switchArguments[0];
 
-            object enumValue = Enum.Parse(this._enumType, enumText, true); // might fail, TODO: Try finding something better than exception during parsing user input...
+            try
+            {
+                string enumText = switchArguments[0];
+                if (string.IsNullOrWhiteSpace(enumText))
+                {
+                    return new ParsingFailure("Switch value cannot be empty.");
+                }
 
-            this.TargetProperty.SetValue(model, enumValue);
+                object enumValue;
+                try
+                {
+                    enumValue = Enum.Parse(this._enumType, enumText, true); // TODO: is there a better way to parse generic enum?
+                }
+                catch (ArgumentException)
+                {
+                    return new ParsingFailure($"'{enumText}' is not proper expected value from [{this._enumType.Name}] enumeration.");
+                }
+
+                this.TargetProperty.SetValue(model, enumValue);
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception e)
+            {
+                return new ParsingFailure(e.Message);
+            }
         }
 
         /// <inheritdoc />
@@ -76,9 +98,18 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             return this._validValues;
         }
 
-        public override void ApplyDefault(CommandModel model)
+        public override IParsingResult ApplyDefault(CommandModel model)
         {
-            this.TargetProperty.SetValue(model, this._defaultValue);
+            try
+            {
+                this.TargetProperty.SetValue(model, this._defaultValue);
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception e)
+            {
+                return new ParsingFailure(e.Message);
+            }
         }
     }
 }

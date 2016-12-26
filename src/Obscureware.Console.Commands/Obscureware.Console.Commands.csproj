@@ -73,6 +73,9 @@
     <Compile Include="Internals\Converters\TimeSpanArgumentConverter.cs" />
     <Compile Include="ICommandEngine.cs" />
     <Compile Include="Internals\IKeyWordProvider.cs" />
+    <Compile Include="Internals\Parsers\IParsingResult.cs" />
+    <Compile Include="Internals\Parsers\ParsingFailure.cs" />
+    <Compile Include="Internals\Parsers\ParsingSuccess.cs" />
     <Compile Include="IValueParsingOptions.cs" />
     <Compile Include="Internals\SyntaxInfo.cs" />
     <Compile Include="CommandOptionNameAttribute.cs" />

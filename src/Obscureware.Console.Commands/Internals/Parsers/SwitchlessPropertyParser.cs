@@ -54,9 +54,18 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         public int ArgumentIndex { get; }
 
         /// <inheritdoc />
-        protected override void DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
+        protected override IParsingResult DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
         {
-            this.TargetProperty.SetValue(model, this._converter.TryConvert(args[argIndex], options.UiCulture));
+            try
+            {
+                this.TargetProperty.SetValue(model, this._converter.TryConvert(args[argIndex], options.UiCulture));
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception e)
+            {
+                return new ParsingFailure(e.Message);
+            }
         }
     }
 }

@@ -46,16 +46,16 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             this.TargetProperty = propertyInfo;
         }
 
-        public void Apply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
+        public IParsingResult Apply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex)
         {
             if (model.GetType() != this.TargetProperty.DeclaringType)
             {
                 throw new InvalidOperationException("Incompatible model type.");
             }
 
-            this.DoApply(options, model, args, ref argIndex);
+            return this.DoApply(options, model, args, ref argIndex);
         }
 
-        protected abstract void DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex);
+        protected abstract IParsingResult DoApply(ICommandParserOptions options, CommandModel model, string[] args, ref int argIndex);
     }
 }
