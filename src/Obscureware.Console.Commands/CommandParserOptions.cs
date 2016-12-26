@@ -23,7 +23,7 @@
 // SOFTWARE.
 // </copyright>
 // <summary>
-//   Defines the core  CommandParserOptions implementation of ICommandParserOptions interface.
+//   Defines the core CommandParserOptions implementation of ICommandParserOptions interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace Obscureware.Console.Commands

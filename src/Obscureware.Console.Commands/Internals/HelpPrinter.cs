@@ -104,10 +104,12 @@ namespace Obscureware.Console.Commands.Internals
             this._console.WriteLine(this._helpStyles.HelpBody, "Syntax:");
             this._console.WriteText(this._helpStyles.CommonStyles.Default, "\t");
 
+            // TODO: move switchless to the end and sort!
+
             var syntax = cmdModelBuilder.GetSyntax().ToArray();
             var options = string.Join(" ", syntax.OrderBy(s => s.IsMandatory).ThenBy(s => s.OptionType).Select(s => s.GetSyntaxString(this._options)));
 
-            // TODO: move switchless to the end and sort!
+            // TODO: use same synatx order like in GetSyntax()
 
             this._console.WriteLine(this._helpStyles.HelpSyntax, $"{cmdModelBuilder.CommandName} {options}");
 

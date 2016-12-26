@@ -17,8 +17,8 @@
                     UiCulture = CultureInfo.CreateSpecificCulture("en-US"), // "pl-PL"
                     FlagCharacters = new[] {@"\", "-"},
                     SwitchCharacters = new[] {@"-", "--"},
-                    OptionArgumentMode = CommandOptionArgumentMode.Separated,
-                    //OptionArgumentJoinCharacater = ':', // not used because of: CommandOptionArgumentMode.Separated
+                    OptionArgumentMode = CommandOptionArgumentMode.Joined,
+                    OptionArgumentJoinCharacater = ':', // not used because of: CommandOptionArgumentMode.Separated
                     AllowFlagsAsOneArgument = false,
                     CommandsSensitivenes = CommandCaseSensitivenes.Insensitive,
                     SwitchlessOptionsMode = SwitchlessOptionsMode.EndOnly, // TODO: let the command decide ?

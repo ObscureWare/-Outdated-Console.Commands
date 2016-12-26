@@ -87,7 +87,6 @@ namespace Obscureware.Console.Commands.Internals.Parsers
 
                 this.DoApplySwitch(model, new []{ remainder }, options);
             }
-
         }
 
         private string SafelyGetNextArg(string[] args, ref int argIndex)
