@@ -103,7 +103,7 @@
     <Compile Include="ICommandOutput.cs" />
     <Compile Include="IConsoleCommand.cs" />
     <Compile Include="Model\MandatoryAttribute.cs" />
-    <Compile Include="Internals\ModelBuilder.cs" />
+    <Compile Include="Internals\CommandModelBuilder.cs" />
     <Compile Include="Internals\OutputManager.cs" />
     <Compile Include="Internals\HelpPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

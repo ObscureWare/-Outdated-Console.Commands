@@ -5,7 +5,7 @@
 
     public class ConsoleContext : ICommandEngineContext
     {
-        public bool ShallTerminate { get; set; }
+        public bool ShallFinishInteracativeSession { get; set; }
 
         public string GetCurrentPrompt()
         {

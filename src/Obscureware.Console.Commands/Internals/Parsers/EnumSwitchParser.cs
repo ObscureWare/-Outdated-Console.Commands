@@ -38,6 +38,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         private readonly Type _enumType;
 
         private readonly string[] _validValues;
+        private object _defaultValue;
 
         public EnumSwitchParser(PropertyInfo propertyInfo, CommandOptionSwitchAttribute optionSwitchAttribute) : base(propertyInfo, optionSwitchAttribute.CommandLiterals)
         {
@@ -48,6 +49,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
 
             this._enumType = optionSwitchAttribute.SwitchBaseType;
             this._validValues = Enum.GetNames(this._enumType);
+            this._defaultValue = optionSwitchAttribute.DefaultValue;
         }
 
         /// <inheritdoc />
@@ -72,6 +74,11 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         public override IEnumerable<string> GetValidValues()
         {
             return this._validValues;
+        }
+
+        public override void ApplyDefault(CommandModel model)
+        {
+            this.TargetProperty.SetValue(model, this._defaultValue);
         }
     }
 }

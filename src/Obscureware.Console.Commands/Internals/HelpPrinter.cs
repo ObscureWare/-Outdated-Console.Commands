@@ -98,7 +98,7 @@ namespace Obscureware.Console.Commands.Internals
         /// Prints full (?) help about particular command.
         /// </summary>
         /// <param name="cmdModelBuilder"></param>
-        public void PrintCommandHelp(ModelBuilder cmdModelBuilder)
+        public void PrintCommandHelp(CommandModelBuilder cmdModelBuilder)
         {
             this._console.WriteLine(this._helpStyles.CommonStyles.Error, $"Function {nameof(this.PrintCommandHelp)} is not yet fully implemented.");
             this._console.WriteLine(this._helpStyles.HelpBody, "Syntax:");
@@ -124,19 +124,28 @@ namespace Obscureware.Console.Commands.Internals
                         var literals = string.Join(" ", syntaxInfo.Literals);
 
                         this._console.WriteText(this._helpStyles.HelpDefinition, $"\t{literals}\t{syntaxInfo.OptionName}{mandatoryIndicator}\t");
-                        this._console.WriteLine(this._helpStyles.HelpDescription, syntaxInfo.Description);
+                        string desc = (syntaxInfo.DefaultValue == null)
+                            ? syntaxInfo.Description
+                            : $"{syntaxInfo.Description} Defaults to '{syntaxInfo.DefaultValue.ToString()}'";
+                        this._console.WriteLine(this._helpStyles.HelpDescription, desc);
 
-                        // TODO: more description for values of switches / values etc or custom description lines - for each property
+                        // TODO: more description for values of switches / values etc or custom description lines - for each property or available value
                     }
                     else
                     {
                         this._console.WriteText(this._helpStyles.HelpDefinition, $"\t\"{syntaxInfo.OptionName}\"{mandatoryIndicator}\t");
-                        this._console.WriteLine(this._helpStyles.HelpDescription, syntaxInfo.Description);
+                        string desc = (syntaxInfo.DefaultValue == null)
+                            ? syntaxInfo.Description
+                            : $"{syntaxInfo.Description} Defaults to '{syntaxInfo.DefaultValue.ToString()}'";
+                        this._console.WriteLine(this._helpStyles.HelpDescription, desc);
                     }
                 }
 
                 this._console.WriteLine(this._helpStyles.CommonStyles.Default, "");
-                this._console.WriteLine(this._helpStyles.CommonStyles.Default, "Options denoted with \"*\" character are mandatory. In the syntax they are in pointy brackets.");
+                if (syntax.Any(s => s.IsMandatory))
+                {
+                    this._console.WriteLine(this._helpStyles.CommonStyles.Default, "Options denoted with \"*\" character are mandatory. In the syntax they are in pointy brackets.");
+                }
                 this._console.WriteLine(this._helpStyles.CommonStyles.Default, "All option switches are case sensitive until option explicitly states case alternatives.");
 
                 if (this._options.AllowFlagsAsOneArgument && syntax.Count(s => s.OptionType == SyntaxOptionType.Flag) > 1)
@@ -198,8 +207,8 @@ namespace Obscureware.Console.Commands.Internals
 
             foreach (var cmdInfo in commands)
             {
-                this._console.WriteText(this._helpStyles.HelpDefinition, cmdInfo.ModelBuilder.CommandName + "\t\t");
-                this._console.WriteLine(this._helpStyles.HelpDescription, cmdInfo.ModelBuilder.CommandDescription);
+                this._console.WriteText(this._helpStyles.HelpDefinition, cmdInfo.CommandModelBuilder.CommandName + "\t\t");
+                this._console.WriteLine(this._helpStyles.HelpDescription, cmdInfo.CommandModelBuilder.CommandDescription);
 
                 // TODO: expose and print description in nice way - justified paragraph or else... Tables?
             }

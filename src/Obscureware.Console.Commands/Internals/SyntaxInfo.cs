@@ -10,6 +10,10 @@
 
         public SyntaxInfo(PropertyInfo propertyInfo, string optionName)
         {
+            if (propertyInfo == null) throw new ArgumentNullException(nameof(propertyInfo));
+            if (string.IsNullOrWhiteSpace(optionName))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(optionName));
+
             this.OptionName = optionName;
             this._propertyInfo = propertyInfo;
         }
@@ -25,6 +29,10 @@
         public string[] SwitchValues { get; set; }
 
         public string Description { get; set; }
+
+        public string TargetPropertyName => this._propertyInfo.Name;
+
+        public object DefaultValue { get; set; }
 
         public string GetSyntaxString(ICommandParserOptions options)
         {

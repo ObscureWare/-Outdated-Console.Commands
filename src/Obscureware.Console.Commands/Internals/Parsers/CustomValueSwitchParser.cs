@@ -66,5 +66,10 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         {
             yield break; // custom values switch does not have predefined values, of course.
         }
+
+        public override void ApplyDefault(CommandModel model)
+        {
+            throw new NotImplementedException("Not yet supported for custom-value options.");
+        }
     }
 }

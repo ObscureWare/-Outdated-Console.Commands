@@ -103,5 +103,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         protected abstract void DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions);
 
         public abstract IEnumerable<string> GetValidValues();
+
+        public abstract void ApplyDefault(CommandModel model);
     }
 }

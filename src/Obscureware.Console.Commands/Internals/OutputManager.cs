@@ -10,6 +10,8 @@
 
     public class OutputManager : ICommandOutput
     {
+        // TODO: add everywhere console / buffer boundaries checking
+
         private readonly IConsole _consoleInstance;
         private readonly CommandEngineStyles _engineStyles;
 
@@ -58,6 +60,13 @@
             {
                 return this._uiCulture;
             }
+        }
+
+        public IOutputLineManager ReserveNewLine()
+        {
+            // TODO: returned line manager must be managed in case it needs to be repositioned if buffer boundaries change...
+
+            throw new System.NotImplementedException();
         }
     }
 }

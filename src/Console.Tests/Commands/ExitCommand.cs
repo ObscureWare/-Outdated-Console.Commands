@@ -11,7 +11,7 @@ namespace ConsoleApplication1.Commands
         public void Execute(object contextObject, ICommandOutput output, object runtimeModel)
         {
             output.PrintWarning("Temrinating application...");
-            (contextObject as ConsoleContext).ShallTerminate = true; // let it throw on null
+            (contextObject as ConsoleContext).ShallFinishInteracativeSession = true; // let it throw on null
         }
     }
 }

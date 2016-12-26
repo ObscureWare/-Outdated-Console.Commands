@@ -51,6 +51,8 @@ namespace Obscureware.Console.Commands.Internals
 
         private readonly ICommandParserOptions _options;
 
+        private readonly OutputManager _outputManager;
+
         // NO default public constructor - by design
         internal CommandEngine(CommandManager commandManager, ICommandParserOptions options, CommandEngineStyles styles, HelpPrinter printHelper, IConsole console)
         {
@@ -76,6 +78,7 @@ namespace Obscureware.Console.Commands.Internals
             this._options = options;
             this._styles = styles;
             this._helpPrinter = printHelper;
+            this._outputManager = new OutputManager(this._console, this._styles, this._options.UiCulture);
         }
 
         /// <inheritdoc />
@@ -137,7 +140,6 @@ namespace Obscureware.Console.Commands.Internals
 
             // This might crash-throw if invalid types defined. Fine.
             var model = this.BuildModelForCommand(cmd, commandLineArguments.Skip(1));
-            var outputManager = new OutputManager(this._console, this._styles, this._options.UiCulture);
 
             if (model == null)
             {
@@ -147,7 +149,7 @@ namespace Obscureware.Console.Commands.Internals
 
             try
             {
-                cmd.Command.Execute(context, outputManager, model); // skip only cmdName itself
+                cmd.Command.Execute(context, _outputManager, model); // skip only cmdName itself
             }
             catch (Exception ex)
             {
@@ -168,7 +170,7 @@ namespace Obscureware.Console.Commands.Internals
                 throw new ArgumentNullException(nameof(context));
             }
 
-            while (!context.ShallTerminate)
+            while (!context.ShallFinishInteracativeSession)
             {
                 this.DisplayPrompt(context.GetCurrentPrompt()); // TODO: perhaps multi-color prompt support?
 
@@ -196,12 +198,12 @@ namespace Obscureware.Console.Commands.Internals
 
         private void PrintCommandHelp(CommandInfo cmd, IEnumerable<string> extraArguments)
         {
-            this._helpPrinter.PrintCommandHelp(cmd.ModelBuilder);
+            this._helpPrinter.PrintCommandHelp(cmd.CommandModelBuilder);
         }
 
         private object BuildModelForCommand(CommandInfo cmdInfo, IEnumerable<string> arguments)
         {
-            return cmdInfo.ModelBuilder.BuildModel(arguments, this._options);
+            return cmdInfo.CommandModelBuilder.BuildModel(arguments, this._options, this._outputManager);
         }
     }
 }
