@@ -1,5 +1,5 @@
 # Console.Commands
-*Please _donate_ my off-work development [here](https://www.paypal.me/SebastianGruchacz). Thank you in advance!*
+*![PayPal](https://github.com/ObscureWare/Console.Operations/blob/master/doc/pp64.png) If you find this library useful please consider [donating](https://www.paypal.me/SebastianGruchacz) to support my development.*
 
 ## Description
 Current version provides developer with:
@@ -183,11 +183,11 @@ public class DirCommandModel : CommandModel
 
 ## Working with command line
 Now, when user requests help to the command, it will be displayed, using current engine settings:
-![Help Sample](https://github.com/ObscureWare/Console.Commands/blob/master/demo/help_sample_01.png)
+![Help Sample](https://github.com/ObscureWare/Console.Commands/blob/master/doc/help_sample_01.png)
 Actually, help switch could be placed anywhere in the command line to work.
 
 It uses simple tabled results (initial, very basic functions) to present results:
-![Execution Sample](https://github.com/ObscureWare/Console.Commands/blob/master/demo/help_sample_02.png)
+![Execution Sample](https://github.com/ObscureWare/Console.Commands/blob/master/doc/help_sample_02.png)
 
 The command will also be listed together with other discovered / configured command, when asked:
-![Help Main Sample](https://github.com/ObscureWare/Console.Commands/blob/master/demo/help_sample_03.png)
+![Help Main Sample](https://github.com/ObscureWare/Console.Commands/blob/master/doc/help_sample_03.png)
