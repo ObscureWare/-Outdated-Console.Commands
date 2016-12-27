@@ -1,5 +1,5 @@
 # Console.Commands
-*![PayPal](https://github.com/ObscureWare/Console.Operations/blob/master/doc/pp64.png) If you find this library useful please consider [donating](https://www.paypal.me/SebastianGruchacz) to support my development.*
+*![PayPal](https://github.com/ObscureWare/Console.Commands/blob/master/doc/pp64.png) If you find this library useful please consider [donating](https://www.paypal.me/SebastianGruchacz) to support my development.*
 
 ## Description
 Current version provides developer with:
