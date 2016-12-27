@@ -26,6 +26,9 @@
 //   Defines the ICommandOutput interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using ObscureWare.Console;
+
 namespace Obscureware.Console.Commands
 {
     using System.Collections.Generic;
@@ -48,5 +51,22 @@ namespace Obscureware.Console.Commands
         void PrintWarning(string message);
 
         CultureInfo UiCulture { get; }
+
+        /// <summary>
+        /// Obtains first unused line area and returns management object.
+        /// </summary>
+        /// <returns></returns>
+        IOutputLineManager ReserveNewLine();
+    }
+
+    public interface IOutputLineManager
+    {
+        int MaxLength { get; }
+
+        int LineNumber { get; }
+
+        void WriteText(ConsoleFontColor style, string text);
+
+        void Clear();
     }
 }

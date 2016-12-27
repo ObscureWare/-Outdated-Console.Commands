@@ -30,12 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ObscureWare.Console, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Core.0.2.0\lib\net452\ObscureWare.Console.dll</HintPath>
+    <Reference Include="ObscureWare.Console, Version=0.2.2.1729, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Core.0.2.2.1729\lib\net452\ObscureWare.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Console.Operations, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.1.0\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+    <Reference Include="Obscureware.Console.Operations, Version=0.1.1.1761, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.1.1.1761\lib\net452\Obscureware.Console.Operations.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -73,6 +73,9 @@
     <Compile Include="Internals\Converters\TimeSpanArgumentConverter.cs" />
     <Compile Include="ICommandEngine.cs" />
     <Compile Include="Internals\IKeyWordProvider.cs" />
+    <Compile Include="Internals\Parsers\IParsingResult.cs" />
+    <Compile Include="Internals\Parsers\ParsingFailure.cs" />
+    <Compile Include="Internals\Parsers\ParsingSuccess.cs" />
     <Compile Include="IValueParsingOptions.cs" />
     <Compile Include="Internals\SyntaxInfo.cs" />
     <Compile Include="CommandOptionNameAttribute.cs" />
@@ -103,7 +106,7 @@
     <Compile Include="ICommandOutput.cs" />
     <Compile Include="IConsoleCommand.cs" />
     <Compile Include="Model\MandatoryAttribute.cs" />
-    <Compile Include="Internals\ModelBuilder.cs" />
+    <Compile Include="Internals\CommandModelBuilder.cs" />
     <Compile Include="Internals\OutputManager.cs" />
     <Compile Include="Internals\HelpPrinter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Console.Commands.License.txt" />
+    <Content Include="Obscureware.Console.Operations.License.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Obscureware.Console.Commands.nuspec" />

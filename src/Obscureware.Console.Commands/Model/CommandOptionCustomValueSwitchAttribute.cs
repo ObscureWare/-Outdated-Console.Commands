@@ -15,4 +15,6 @@
             this.CommandLiterals = commandLiterals;
         }
     }
+
+    // TODO: perhaps allow default value as well?
 }

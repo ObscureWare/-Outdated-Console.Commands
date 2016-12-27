@@ -38,6 +38,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         private readonly Type _enumType;
 
         private readonly string[] _validValues;
+        private object _defaultValue;
 
         public EnumSwitchParser(PropertyInfo propertyInfo, CommandOptionSwitchAttribute optionSwitchAttribute) : base(propertyInfo, optionSwitchAttribute.CommandLiterals)
         {
@@ -48,10 +49,11 @@ namespace Obscureware.Console.Commands.Internals.Parsers
 
             this._enumType = optionSwitchAttribute.SwitchBaseType;
             this._validValues = Enum.GetNames(this._enumType);
+            this._defaultValue = optionSwitchAttribute.DefaultValue;
         }
 
         /// <inheritdoc />
-        protected override void DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions)
+        protected override IParsingResult DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions)
         {
             if (pOptions == null)
             {
@@ -61,17 +63,53 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             {
                 throw new ArgumentException("Value cannot be an empty collection.", nameof(switchArguments));
             }
-            string enumText = switchArguments[0];
 
-            object enumValue = Enum.Parse(this._enumType, enumText, true); // might fail, TODO: Try finding something better than exception during parsing user input...
+            try
+            {
+                string enumText = switchArguments[0];
+                if (string.IsNullOrWhiteSpace(enumText))
+                {
+                    return new ParsingFailure("Switch value cannot be empty.");
+                }
 
-            this.TargetProperty.SetValue(model, enumValue);
+                object enumValue;
+                try
+                {
+                    enumValue = Enum.Parse(this._enumType, enumText, true); // TODO: is there a better way to parse generic enum?
+                }
+                catch (ArgumentException)
+                {
+                    return new ParsingFailure($"'{enumText}' is not proper expected value from [{this._enumType.Name}] enumeration.");
+                }
+
+                this.TargetProperty.SetValue(model, enumValue);
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception e)
+            {
+                return new ParsingFailure(e.Message);
+            }
         }
 
         /// <inheritdoc />
         public override IEnumerable<string> GetValidValues()
         {
             return this._validValues;
+        }
+
+        public override IParsingResult ApplyDefault(CommandModel model)
+        {
+            try
+            {
+                this.TargetProperty.SetValue(model, this._defaultValue);
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception e)
+            {
+                return new ParsingFailure(e.Message);
+            }
         }
     }
 }

@@ -12,6 +12,6 @@
     <description>This library is robust, flexible console command engine that cooperates with our Console.Core coloring engine. It supports various types of syntax and provides separation of models, commands and console output, which is good for proper unit testing.</description>
     <releaseNotes>Version BETA. Will be largely extended with much more capabilities.</releaseNotes>
     <copyright>Copyright © Sebastian Gruchacz 2016</copyright>
-    <tags>Console,commands, engine,management</tags>
+    <tags>Console,commands,engine,management</tags>
   </metadata>
 </package>

@@ -1,4 +1,32 @@
-﻿namespace Obscureware.Console.Commands.Internals
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CommandModelBuilder.cs" company="Obscureware Solutions">
+// MIT License
+//
+// Copyright(c) 2016 Sebastian Gruchacz
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </copyright>
+// <summary>
+//   Defines internal class responsible for building command's model from given command arguments.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace Obscureware.Console.Commands.Internals
 {
     using System;
     using System.Collections.Generic;
@@ -7,12 +35,11 @@
     using Converters;
     using Model;
 
-    using Obscureware.Console.Commands.Styles;
-
     using Parsers;
 
-    internal class ModelBuilder
+    internal class CommandModelBuilder
     {
+        // Cached model definitions and help content
         private readonly Dictionary<string, FlagPropertyParser> _flagParsers = new Dictionary<string, FlagPropertyParser>();
         private readonly Dictionary<string, BaseSwitchPropertyParser> _switchParsers = new Dictionary<string, BaseSwitchPropertyParser>();
         private readonly List<SwitchlessPropertyParser> _switchlessParsers = new List<SwitchlessPropertyParser>();
@@ -41,7 +68,7 @@
             return this._syntax;
         }
 
-        public ModelBuilder(Type modelType, string commandName)
+        public CommandModelBuilder(Type modelType, string commandName)
         {
             this.CommandName = commandName;
             if (modelType == null)
@@ -129,9 +156,15 @@
                         throw new BadImplementationException($"Could not find proper SwitchParser for property \"{propertyInfo.Name}\"", this._modelType);
                     }
 
+                    if (optionSwitchAttribute.DefaultValue != null && syntaxInfo.IsMandatory)
+                    {
+                        throw new BadImplementationException($"When default value has been specified for property, it cannot be marked as mandatory. Bad declaration of property \"{propertyInfo.Name}\"", this._modelType);
+                    }
+
                     syntaxInfo.Literals = optionSwitchAttribute.CommandLiterals;
                     syntaxInfo.OptionType = SyntaxOptionType.Switch;
                     syntaxInfo.SwitchValues = parser.GetValidValues().ToArray();
+                    syntaxInfo.DefaultValue = optionSwitchAttribute.DefaultValue;
 
                     foreach (var literal in optionSwitchAttribute.CommandLiterals)
                     {
@@ -230,17 +263,21 @@
             // TODO: validate model type deeper - conflicting switches, missing attributes etc.
         }
 
-        public CommandModel BuildModel(IEnumerable<string> arguments, ICommandParserOptions options)
+        public CommandModel BuildModel(IEnumerable<string> arguments, ICommandParserOptions options, ICommandOutput output)
         {
             var model = Activator.CreateInstance(this._modelType) as CommandModel;
             string[] args = arguments.ToArray();
             int argIndex = 0;
             int unnamedIndex = 0;
             string[] flagSwitchPrefixes = options.SwitchCharacters.Concat(options.FlagCharacters).Distinct().ToArray();
+            HashSet<string> usedProperties = new HashSet<string>();
+
+            this.ApplyDefaults(model);
 
             while (argIndex < args.Length)
             {
                 string arg = args[argIndex].Trim();
+                IParsingResult result;
 
                 // need to skip unnamed parameters there are just exactly like one of prefixes (i.e. - single slash or backslash)
                 if (flagSwitchPrefixes.All(p => p != arg) && flagSwitchPrefixes.Any(p => arg.StartsWith(p)))
@@ -248,31 +285,65 @@
                     var propertyParser = this.FindProperty(options, arg);
                     if (propertyParser == null)
                     {
-                        // TODO: write error about invalid switch
+                        output.PrintWarning($"Command's argument is not valid => \"{arg}\".");
                         return null;
                     }
 
-                    propertyParser.Apply(options, model, args, ref argIndex);
+                    if (usedProperties.Contains(propertyParser.TargetProperty.Name))
+                    {
+                        output.PrintWarning($"Similar argument has been already specified => \"{arg}\".");
+                        return null;
+                    }
+
+                    usedProperties.Add(propertyParser.TargetProperty.Name);
+                    result = propertyParser.Apply(options, model, args, ref argIndex);
                 }
                 else
                 {
                     var propertyParser = this._switchlessParsers.SingleOrDefault(p => p.ArgumentIndex == unnamedIndex++);
                     if (propertyParser == null)
                     {
-                        // TODO: write error about too many switch-less arguments
+                        output.PrintWarning($"This command does not expect so many standalone arguments => \"{arg}\".");
                         return null;
                     }
 
-                    propertyParser.Apply(options, model, args, ref argIndex);
+                    usedProperties.Add(propertyParser.TargetProperty.Name);
+                    result = propertyParser.Apply(options, model, args, ref argIndex);
+                }
+
+                if (!result.IsFine)
+                {
+                    output.PrintWarning($"Parsing error => {result.Message}");
+                    return null;
                 }
 
                 argIndex++;
             }
 
+            foreach (var syntaxInfo in this._syntax)
+            {
+                if (syntaxInfo.IsMandatory && !usedProperties.Contains(syntaxInfo.TargetPropertyName))
+                {
+                    output.PrintWarning($"Expected mandatory argument has not been provided => \"{syntaxInfo.OptionName}\".");
+                    return null;
+                }
+            }
             // TODO: validate that all mandatory options were provided and switch-less arguments too
             // TODO: validate mixed / non mixed mode for switch-less parameters
 
             return model;
+        }
+
+        private void ApplyDefaults(CommandModel model)
+        {
+            foreach (var syntaxInfo in this._syntax)
+            {
+                if (syntaxInfo.DefaultValue != null)
+                {
+                    var parser = this._switchParsers.SingleOrDefault(p => p.Key.Equals(syntaxInfo.OptionName)).Value;
+                    parser?.ApplyDefault(model);
+                }
+            }
         }
 
         private BasePropertyParser FindProperty(ICommandParserOptions options, string argSyntax)
@@ -306,11 +377,46 @@
 
 
             // Switches
+
             foreach (var switchPrefix in options.SwitchCharacters)
             {
-                string cleanFlag = argSyntax.CutLeftFirst(switchPrefix);
-                BaseSwitchPropertyParser parser = this._switchParsers.FirstOrDefault(p => p.Key.Equals(cleanFlag)).Value;
-                return parser;
+                switch (options.OptionArgumentMode)
+                {
+                    case CommandOptionArgumentMode.Separated:
+                    {
+                        string cleanFlag = argSyntax.CutLeftFirst(switchPrefix);
+                        var parser = this._switchParsers.FirstOrDefault(p => p.Key.Equals(cleanFlag)).Value;
+                        if (parser != null)
+                        {
+                            return parser;
+                        }
+                        break;
+                    }
+                    case CommandOptionArgumentMode.Merged:
+                    {
+                        var availableSwitches = this._switchParsers.Keys.OrderByDescending(k => k.Length);
+                        string cleanFlag = argSyntax.CutLeftFirst(switchPrefix);
+                        string matchingKey = availableSwitches.FirstOrDefault(sw => cleanFlag.StartsWith(sw));
+                        if (matchingKey != null)
+                        {
+                            return this._switchParsers[matchingKey];
+                        }
+                        break;
+                    }
+                    case CommandOptionArgumentMode.Joined:
+                    {
+                        string[] parts = argSyntax.Split(options.OptionArgumentJoinCharacater);
+                        string cleanFlag = parts[0].CutLeftFirst(switchPrefix);
+                        var parser =  this._switchParsers.FirstOrDefault(p => p.Key.Equals(cleanFlag)).Value;
+                        if (parser != null)
+                        {
+                            return parser;
+                        }
+                        break;
+                    }
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(options), nameof(options.OptionArgumentMode));
+                }
             }
 
             return null;

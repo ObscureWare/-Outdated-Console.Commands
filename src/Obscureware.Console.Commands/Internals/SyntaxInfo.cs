@@ -1,4 +1,32 @@
-﻿namespace Obscureware.Console.Commands.Internals
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SyntaxInfo.cs" company="Obscureware Solutions">
+// MIT License
+//
+// Copyright(c) 2016 Sebastian Gruchacz
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// </copyright>
+// <summary>
+//   Defines SyntaxInfo class.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+namespace Obscureware.Console.Commands.Internals
 {
     using System;
     using System.Linq;
@@ -10,6 +38,10 @@
 
         public SyntaxInfo(PropertyInfo propertyInfo, string optionName)
         {
+            if (propertyInfo == null) throw new ArgumentNullException(nameof(propertyInfo));
+            if (string.IsNullOrWhiteSpace(optionName))
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(optionName));
+
             this.OptionName = optionName;
             this._propertyInfo = propertyInfo;
         }
@@ -26,8 +58,15 @@
 
         public string Description { get; set; }
 
+        public string TargetPropertyName => this._propertyInfo.Name;
+
+        public object DefaultValue { get; set; }
+
         public string GetSyntaxString(ICommandParserOptions options)
         {
+            // TODO: take into consideration this: https://technet.microsoft.com/en-us/library/cc771080(v=ws.11).aspx (and perhaps Linux-equivalent...)
+            // TODO: maybe separate syntax printing from syntax info record?
+
             var wrapper = (this.IsMandatory) ? "<{0}{1}>" : "[{0}{1}]";
             return string.Format(wrapper, this.GetInnerSyntaxSelector(options), this.GetInnerSyntaxString(options));
         }

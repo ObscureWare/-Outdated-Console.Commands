@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="commandType"></param>
         /// <returns>Tuple: commandName, CommandModel, Command instance</returns>
-        public Tuple<ModelBuilder, IConsoleCommand> ValidateAndBuildCommand(Type commandType)
+        public Tuple<CommandModelBuilder, IConsoleCommand> ValidateAndBuildCommand(Type commandType)
         {
             // 1. Verify command type
             if (commandType == null)
@@ -45,7 +45,7 @@
                 throw new InvalidOperationException($"Could not create instance of the command {commandType.FullName} using default activator. Make sure it exposes public, parameterless constructor.", iex);
             }
 
-            return new Tuple<ModelBuilder, IConsoleCommand>(mBuilder, instance);
+            return new Tuple<CommandModelBuilder, IConsoleCommand>(mBuilder, instance);
         }
 
         private void VerifyCodeForReference(Type type)
@@ -63,7 +63,7 @@
             //}
         }
 
-        private ModelBuilder ValidateModel(Type modelType, Type commandType)
+        private CommandModelBuilder ValidateModel(Type modelType, Type commandType)
         {
             if (modelType == null)
                 throw new ArgumentException($"Model type of {nameof(CommandModelAttribute)} cannot be null.", nameof(modelType));
@@ -92,7 +92,7 @@
             if (string.IsNullOrWhiteSpace(modelNameAtt.CommandName))
                 throw new ArgumentException($"Model type must be decorated with {nameof(CommandNameAttribute)}.", nameof(modelType));
 
-            return  new ModelBuilder(modelType, modelNameAtt.CommandName);
+            return  new CommandModelBuilder(modelType, modelNameAtt.CommandName);
         }
     }
 }

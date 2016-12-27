@@ -44,7 +44,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
         }
 
         /// <inheritdoc />
-        protected override void DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions)
+        protected override IParsingResult DoApplySwitch(CommandModel model, string[] switchArguments, IValueParsingOptions pOptions)
         {
             if (pOptions == null)
             {
@@ -54,17 +54,32 @@ namespace Obscureware.Console.Commands.Internals.Parsers
             {
                 throw new ArgumentException("Value cannot be an empty collection.", nameof(switchArguments));
             }
-            string valueText = switchArguments[0];
 
-            object value = this._converter.TryConvert(valueText, pOptions.UiCulture);
+            try
+            {
+                string valueText = switchArguments[0];
 
-            this.TargetProperty.SetValue(model, value);
+                object value = this._converter.TryConvert(valueText, pOptions.UiCulture);
+
+                this.TargetProperty.SetValue(model, value);
+
+                return ParsingSuccess.Instance;
+            }
+            catch (Exception ex)
+            {
+                return new ParsingFailure(ex.Message);
+            }
         }
 
         /// <inheritdoc />
         public override IEnumerable<string> GetValidValues()
         {
             yield break; // custom values switch does not have predefined values, of course.
+        }
+
+        public override IParsingResult ApplyDefault(CommandModel model)
+        {
+            throw new NotImplementedException("Not yet supported for custom-value options.");
         }
     }
 }

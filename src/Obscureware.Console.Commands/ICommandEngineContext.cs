@@ -31,9 +31,9 @@ namespace Obscureware.Console.Commands
     public interface ICommandEngineContext
     {
         /// <summary>
-        /// Returns true, when context indicates that application shall finish execution - i.e. stop prompting user for more commands
+        /// Returns true, when context indicates that runtime mode of command engine shall be finished
         /// </summary>
-        bool ShallTerminate { get; set; }
+        bool ShallFinishInteracativeSession { get; set; }
 
         /// <summary>
         /// Shall produce text, that will be displayed to the user as a prompt.

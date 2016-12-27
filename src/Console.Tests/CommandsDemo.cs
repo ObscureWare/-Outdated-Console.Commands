@@ -18,7 +18,7 @@
                     FlagCharacters = new[] {@"\", "-"},
                     SwitchCharacters = new[] {@"-", "--"},
                     OptionArgumentMode = CommandOptionArgumentMode.Separated,
-                    //OptionArgumentJoinCharacater = ':', // not used because of: CommandOptionArgumentMode.Separated
+                    OptionArgumentJoinCharacater = ':', // not used because of: CommandOptionArgumentMode.Separated
                     AllowFlagsAsOneArgument = false,
                     CommandsSensitivenes = CommandCaseSensitivenes.Insensitive,
                     SwitchlessOptionsMode = SwitchlessOptionsMode.EndOnly, // TODO: let the command decide ?
