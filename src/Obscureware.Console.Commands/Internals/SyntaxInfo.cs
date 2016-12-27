@@ -64,6 +64,9 @@ namespace Obscureware.Console.Commands.Internals
 
         public string GetSyntaxString(ICommandParserOptions options)
         {
+            // TODO: take into consideration this: https://technet.microsoft.com/en-us/library/cc771080(v=ws.11).aspx (and perhaps Linux-equivalent...)
+            // TODO: maybe separate syntax printing from syntax info record?
+
             var wrapper = (this.IsMandatory) ? "<{0}{1}>" : "[{0}{1}]";
             return string.Format(wrapper, this.GetInnerSyntaxSelector(options), this.GetInnerSyntaxString(options));
         }

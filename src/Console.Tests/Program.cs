@@ -9,15 +9,15 @@
     {
         private static void Main(string[] args)
         {
-            ConsoleManager helper = new ConsoleManager();
+            ConsoleController controller = new ConsoleController();
             //helper.ReplaceConsoleColor(ConsoleColor.DarkCyan, Color.Salmon);
-            helper.ReplaceConsoleColors(
+            controller.ReplaceConsoleColors(
                 new Tuple<ConsoleColor, Color>(ConsoleColor.DarkCyan, Color.Chocolate),
                 new Tuple<ConsoleColor, Color>(ConsoleColor.Blue, Color.DodgerBlue),
                 new Tuple<ConsoleColor, Color>(ConsoleColor.Yellow, Color.Gold),
                 new Tuple<ConsoleColor, Color>(ConsoleColor.DarkBlue, Color.MidnightBlue));
 
-            IConsole console = new SystemConsole(helper, isFullScreen: false);
+            IConsole console = new SystemConsole(controller, isFullScreen: false);
             ConsoleOperations ops = new ConsoleOperations(console);
 
             TestCommands test = new TestCommands(console);
