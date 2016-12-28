@@ -1,6 +1,12 @@
 # Console.Commands
 *![PayPal](https://github.com/ObscureWare/Console.Commands/blob/master/doc/pp64.png) If you find this library useful please consider [donating](https://www.paypal.me/SebastianGruchacz) to support my development.*
 
+*![Nuget](https://github.com/ObscureWare/Console.Commands/blob/master/doc/nugetlogo.png) You can find Nuget [here](https://www.nuget.org/packages/ObscureWare.Console.Commands/)*
+
+Or install from Nuget commandline:
+
+>Install-Package ObscureWare.Console.Commands
+
 ## Description
 Current version provides developer with:
 - declarative syntax for commands and command model. *(Note: This syntax is being still under development.)*
