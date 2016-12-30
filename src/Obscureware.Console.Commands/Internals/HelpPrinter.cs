@@ -100,9 +100,12 @@ namespace Obscureware.Console.Commands.Internals
         /// <param name="cmdModelBuilder"></param>
         public void PrintCommandHelp(CommandModelBuilder cmdModelBuilder)
         {
-            this._console.WriteLine(this._helpStyles.CommonStyles.Error, $"Function {nameof(this.PrintCommandHelp)} is not yet fully implemented.");
+            this._console.WriteLine(this._helpStyles.CommonStyles.Warning, $"Function '{nameof(this.PrintCommandHelp)}' is not yet fully implemented.");
+            this._console.WriteLine(this._helpStyles.CommonStyles.Default, string.Empty);
+
+            this._console.WriteLine(this._helpStyles.HelpDescription, cmdModelBuilder.CommandDescription);
             this._console.WriteLine(this._helpStyles.HelpBody, "Syntax:");
-            this._console.WriteText(this._helpStyles.CommonStyles.Default, "\t");
+            this._console.WriteText(this._helpStyles.CommonStyles.Default, "  ");
 
             // TODO: move switchless to the end and sort!
 
@@ -115,17 +118,17 @@ namespace Obscureware.Console.Commands.Internals
 
             if (syntax.Any())
             {
-                this._console.WriteLine(this._helpStyles.CommonStyles.Default, "");
+                this._console.WriteLine(this._helpStyles.CommonStyles.Default, string.Empty);
                 this._console.WriteLine(this._helpStyles.HelpBody, "Where:");
                 foreach (var syntaxInfo in syntax)
                 {
-                    var mandatoryIndicator = syntaxInfo.IsMandatory ? "*" : "";
+                    var mandatoryIndicator = syntaxInfo.IsMandatory ? "*" : string.Empty;
 
                     if (syntaxInfo.OptionType != SyntaxOptionType.Switchless)
                     {
                         var literals = string.Join(" ", syntaxInfo.Literals);
 
-                        this._console.WriteText(this._helpStyles.HelpDefinition, $"\t{literals}\t{syntaxInfo.OptionName}{mandatoryIndicator}\t");
+                        this._console.WriteText(this._helpStyles.HelpDefinition, $"  {literals}\t{syntaxInfo.OptionName}{mandatoryIndicator}\t");
                         string desc = (syntaxInfo.DefaultValue == null)
                             ? syntaxInfo.Description
                             : $"{syntaxInfo.Description} Defaults to '{syntaxInfo.DefaultValue.ToString()}'";
@@ -135,7 +138,7 @@ namespace Obscureware.Console.Commands.Internals
                     }
                     else
                     {
-                        this._console.WriteText(this._helpStyles.HelpDefinition, $"\t\"{syntaxInfo.OptionName}\"{mandatoryIndicator}\t");
+                        this._console.WriteText(this._helpStyles.HelpDefinition, $"  \"{syntaxInfo.OptionName}\"{mandatoryIndicator}\t");
                         string desc = (syntaxInfo.DefaultValue == null)
                             ? syntaxInfo.Description
                             : $"{syntaxInfo.Description} Defaults to '{syntaxInfo.DefaultValue.ToString()}'";
@@ -143,7 +146,7 @@ namespace Obscureware.Console.Commands.Internals
                     }
                 }
 
-                this._console.WriteLine(this._helpStyles.CommonStyles.Default, "");
+                this._console.WriteLine(this._helpStyles.CommonStyles.Default, string.Empty);
                 if (syntax.Any(s => s.IsMandatory))
                 {
                     this._console.WriteLine(this._helpStyles.CommonStyles.Default, "Options denoted with \"*\" character are mandatory. In the syntax they are in pointy brackets.");
@@ -155,7 +158,7 @@ namespace Obscureware.Console.Commands.Internals
                     this._console.WriteText(this._helpStyles.CommonStyles.Default, "All flag-options being turned on can be also specified altogether, i. e. ");
                     string allFlagsText = string.Concat(syntax.Where(s => s.OptionType == SyntaxOptionType.Flag).Select(s => s.Literals.First()));
                     this._console.WriteText(this._helpStyles.HelpDefinition,$"{this._options.FlagCharacters.SelectRandom()}{allFlagsText}");
-                    this._console.WriteText(this._helpStyles.CommonStyles.Default, "");
+                    this._console.WriteText(this._helpStyles.CommonStyles.Default, string.Empty);
                 }
 
                 if (this._options.SwitchlessOptionsMode == SwitchlessOptionsMode.Mixed && syntax.Count(s => s.OptionType == SyntaxOptionType.Switchless) > 0)
@@ -171,7 +174,7 @@ namespace Obscureware.Console.Commands.Internals
 
             // TODO: larger command description itself - if available
 
-            this._console.WriteLine(this._helpStyles.CommonStyles.Default, "");
+            this._console.WriteLine(this._helpStyles.CommonStyles.Default, string.Empty);
         }
 
         /// <summary>

@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ObscureWare.Console, Version=0.2.3.18688, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Core.0.2.3.18688\lib\net452\ObscureWare.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Obscureware.Console.Operations, Version=0.1.2.22993, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.1.2.22993\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Shouldly, Version=2.8.2.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
       <HintPath>..\packages\Shouldly.2.8.2\lib\net451\Shouldly.dll</HintPath>
       <Private>True</Private>
@@ -71,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Obscureware.Console.Operations.License.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

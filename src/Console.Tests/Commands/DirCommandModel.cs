@@ -11,7 +11,6 @@
         [CommandOptionName(@"includeFolders")]
         [Mandatory(false)]
         [CommandOptionFlag("d", "D")]
-        // TODO: Name Attribute? Or just use activation letters for help/syntax display?
         [CommandDescription("When set, specifies whether directories shall be listed too.")]
         public bool IncludeFolders { get; set; }
 
@@ -30,7 +29,7 @@
         [CommandDescription("Specifies filter for enumerated files. Does not apply to folders.")]
         // TODO: runtime support for some values / unnamed values auto-completion? sourced through command itself...
         public string Filter { get; set; }
-    }
 
-    // TODO: add sorting
+        // TODO: add sorting argument
+    }
 }
