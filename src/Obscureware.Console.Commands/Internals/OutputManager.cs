@@ -34,6 +34,7 @@ namespace Obscureware.Console.Commands.Internals
     using Obscureware.Console.Commands.Styles;
 
     using ObscureWare.Console;
+    using Operations.Styles;
     using Operations.Tables;
 
     public class OutputManager : ICommandOutput
@@ -52,7 +53,7 @@ namespace Obscureware.Console.Commands.Internals
             this._consoleInstance = consoleInstance;
             this._engineStyles = engineStyles;
             this._uiCulture = uiCulture;
-            this._tablePrinter = new DataTablePrinter(consoleInstance);
+            this._tablePrinter = new SimpleTablePrinter(consoleInstance, new SimpleTableStyle(engineStyles.HelpStyles.HelpHeader, engineStyles.Default, TableOverflowContentBehavior.Ellipsis));
         }
 
         public void PrintResultLines(IEnumerable<string> results)
@@ -74,7 +75,7 @@ namespace Obscureware.Console.Commands.Internals
         /// <inheritdoc />
         public void PrintSimpleTable<T>(DataTable<T> filesTable)
         {
-            this._tablePrinter.PrintAsSimpleTable(filesTable, this._engineStyles.HelpStyles.HelpHeader, this._engineStyles.HelpStyles.HelpDefinition);
+            this._tablePrinter.PrintTable(filesTable);
         }
 
         public void PrintWarning(string message)

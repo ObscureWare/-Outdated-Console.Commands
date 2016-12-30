@@ -4,8 +4,8 @@
     using System.IO;
     using Obscureware.Console.Commands;
     using Obscureware.Console.Commands.Model;
-    using Obscureware.Console.Operations;
     using Obscureware.Console.Operations.Tables;
+    using Obscureware.Shared;
 
     [CommandModel(typeof(DirCommandModel))]
     public class DirCommand : IConsoleCommand
