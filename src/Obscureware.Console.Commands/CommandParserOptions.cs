@@ -30,6 +30,7 @@ namespace Obscureware.Console.Commands
 {
     using System.Globalization;
     using System.Linq;
+    using Shared;
 
     public class CommandParserOptions : ICommandParserOptions
     {

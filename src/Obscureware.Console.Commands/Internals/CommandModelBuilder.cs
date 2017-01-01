@@ -36,6 +36,7 @@ namespace Obscureware.Console.Commands.Internals
     using Model;
 
     using Parsers;
+    using Shared;
 
     internal class CommandModelBuilder
     {

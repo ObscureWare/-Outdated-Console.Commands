@@ -33,6 +33,7 @@ namespace Obscureware.Console.Commands.Internals
     using System.Linq;
     using System.Reflection;
     using Converters;
+    using Shared;
 
     /// <summary>
     /// Manages available data converters - used to convert string into real model values.
