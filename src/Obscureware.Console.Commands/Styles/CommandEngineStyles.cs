@@ -20,7 +20,10 @@
                     Warning = new ConsoleFontColor(Color.Orange, Color.Black),
                     
 
-                    Prompt = new ConsoleFontColor(Color.Yellow, Color.DarkBlue)
+                    Prompt = new ConsoleFontColor(Color.Yellow, Color.DarkBlue),
+
+                    OddRowColor = new ConsoleFontColor(Color.Silver, Color.Black),
+                    EvenRowColor = new ConsoleFontColor(Color.DimGray, Color.Black)
                 };
 
                 engineStyles.HelpStyles = new HelpStyles(engineStyles)
@@ -53,5 +56,11 @@
         /// Styling Help provider
         /// </summary>
         public IHelpStyles HelpStyles { get; set; }
+
+        /// <inheritdoc />
+        public ConsoleFontColor OddRowColor { get; set; }
+
+        /// <inheritdoc />
+        public ConsoleFontColor EvenRowColor { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace Obscureware.Console.Commands.Internals
 
     using ObscureWare.Console;
     using Operations.Styles;
+    using Operations.TablePrinters;
     using Operations.Tables;
 
     public class OutputManager : ICommandOutput
@@ -46,6 +47,9 @@ namespace Obscureware.Console.Commands.Internals
 
         private readonly CultureInfo _uiCulture;
 
+        /// <summary>
+        /// Default table printer for all commands
+        /// </summary>
         private readonly DataTablePrinter _tablePrinter;
 
         public OutputManager(IConsole consoleInstance, CommandEngineStyles engineStyles, CultureInfo uiCulture)
@@ -53,7 +57,16 @@ namespace Obscureware.Console.Commands.Internals
             this._consoleInstance = consoleInstance;
             this._engineStyles = engineStyles;
             this._uiCulture = uiCulture;
-            this._tablePrinter = new SimpleTablePrinter(consoleInstance, new SimpleTableStyle(engineStyles.HelpStyles.HelpHeader, engineStyles.Default, TableOverflowContentBehavior.Ellipsis));
+
+            this._tablePrinter = new SimpleTablePrinter(
+                consoleInstance, 
+                new SimpleTableStyle(engineStyles.HelpStyles.HelpHeader, engineStyles.OddRowColor)
+                {
+                    EvenRowColor = engineStyles.EvenRowColor,
+                    AtomicPrinting = true,
+                    ShowHeader = true,
+                    OverflowBehaviour = TableOverflowContentBehavior.Wrap
+                });
         }
 
         public void PrintResultLines(IEnumerable<string> results)
