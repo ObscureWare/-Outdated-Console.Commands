@@ -9,5 +9,9 @@ namespace Obscureware.Console.Commands.Styles
         ConsoleFontColor Error { get; set; }
 
         ConsoleFontColor Default { get; set; }
+
+        ConsoleFontColor OddRowColor { get; }
+
+        ConsoleFontColor EvenRowColor { get; }
     }
 }

@@ -30,12 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ObscureWare.Console, Version=0.2.3.18688, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Core.0.2.3.18688\lib\net452\ObscureWare.Console.dll</HintPath>
+    <Reference Include="ObscureWare.Console, Version=0.2.4.17827, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Core.0.2.4.17827\lib\net452\ObscureWare.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Console.Operations, Version=0.1.2.22993, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.1.2.22993\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+    <Reference Include="Obscureware.Console.Operations, Version=0.1.10.672, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.1.10.672\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Obscureware.Shared, Version=0.1.2.393, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.1.10.672\lib\net452\Obscureware.Shared.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,7 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadImplementationException.cs" />
     <Compile Include="CommandParserOptions.cs" />
     <Compile Include="Internals\CommandLineUtilities.cs" />
     <Compile Include="CommandEngineBuilder.cs" />

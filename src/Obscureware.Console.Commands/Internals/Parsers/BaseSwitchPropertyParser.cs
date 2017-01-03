@@ -33,6 +33,7 @@ namespace Obscureware.Console.Commands.Internals.Parsers
     using System.Linq;
     using System.Reflection;
     using Model;
+    using Shared;
 
     internal abstract class BaseSwitchPropertyParser : BasePropertyParser
     {

@@ -35,6 +35,9 @@ namespace Obscureware.Console.Commands.Internals
     using Obscureware.Console.Commands.Styles;
 
     using ObscureWare.Console;
+    using Operations.Styles;
+    using Operations.TablePrinters;
+    using Operations.Tables;
     using Parsers;
 
     internal class HelpPrinter : IKeyWordProvider
@@ -100,6 +103,10 @@ namespace Obscureware.Console.Commands.Internals
         /// <param name="cmdModelBuilder"></param>
         public void PrintCommandHelp(CommandModelBuilder cmdModelBuilder)
         {
+            // TODO: implement table that allows separate column coloring
+            // TODO: or per-cell coloring
+            // this would allow for better display.
+
             this._console.WriteLine(this._helpStyles.CommonStyles.Warning, $"Function '{nameof(this.PrintCommandHelp)}' is not yet fully implemented.");
             this._console.WriteLine(this._helpStyles.CommonStyles.Default, string.Empty);
 
@@ -107,12 +114,12 @@ namespace Obscureware.Console.Commands.Internals
             this._console.WriteLine(this._helpStyles.HelpBody, "Syntax:");
             this._console.WriteText(this._helpStyles.CommonStyles.Default, "  ");
 
-            // TODO: move switchless to the end and sort!
+            // TODO: move switch-less to the end and sort!
 
             var syntax = cmdModelBuilder.GetSyntax().ToArray();
             var options = string.Join(" ", syntax.OrderBy(s => s.IsMandatory).ThenBy(s => s.OptionType).Select(s => s.GetSyntaxString(this._options)));
 
-            // TODO: use same synatx order like in GetSyntax()
+            // TODO: use same syntax order like in GetSyntax()
 
             this._console.WriteLine(this._helpStyles.HelpSyntax, $"{cmdModelBuilder.CommandName} {options}");
 
@@ -210,13 +217,34 @@ namespace Obscureware.Console.Commands.Internals
 
             this._console.WriteLine(this._helpStyles.HelpHeader, "Available commands:");
 
-            foreach (var cmdInfo in commands)
-            {
-                this._console.WriteText(this._helpStyles.HelpDefinition, cmdInfo.CommandModelBuilder.CommandName + "\t\t");
-                this._console.WriteLine(this._helpStyles.HelpDescription, cmdInfo.CommandModelBuilder.CommandDescription);
+            // TODO: make this printer and style read-only in constructor - no changes. if style changes, instance changes...
 
-                // TODO: expose and print description in nice way - justified paragraph or else... Tables?
+            var verySimpleStyling = new SimpleTableStyle(
+                this._helpStyles.HelpHeader,
+                this._helpStyles.CommonStyles.OddRowColor)
+            {
+                AtomicPrinting = true,
+                EvenRowColor = this._helpStyles.CommonStyles.EvenRowColor,
+                OverflowBehaviour = TableOverflowContentBehavior.Wrap,
+                ShowHeader = false
+            };
+
+            var commandInfos = commands as CommandInfo[] ?? commands.ToArray();
+
+            var commandListTable = new DataTable<CommandInfo>(
+                new ColumnInfo("Command Name", ColumnAlignment.Left, commandInfos.Max(cmd => cmd.CommandModelBuilder.CommandName.Length) + 2),
+                new ColumnInfo("Description", ColumnAlignment.Left));
+
+            foreach (var cmdInfo in commandInfos)
+            {
+                commandListTable.AddRow(cmdInfo, new []{
+                    "  " + cmdInfo.CommandModelBuilder.CommandName,
+                    cmdInfo.CommandModelBuilder.CommandDescription});
             }
+
+            var printer = new SimpleTablePrinter(this._console, verySimpleStyling);
+            printer.PrintTable(commandListTable); // TODO: printAt + 2 columns of margin, now simulated by +2 spaces to first column
+            // printAt() or PrintIntended(table, indentation)
 
             this._console.WriteLine();
             this._console.WriteLine(this._helpStyles.CommonStyles.Default, $"All command names are case {this._options.CommandsSensitivenes.ToString().ToLower()}.");

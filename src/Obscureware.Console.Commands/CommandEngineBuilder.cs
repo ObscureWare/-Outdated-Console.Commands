@@ -10,6 +10,7 @@
     using Obscureware.Console.Commands.Styles;
 
     using ObscureWare.Console;
+    using Shared;
 
     /// <summary>
     /// Fluent-syntax based CommandEngine builder
