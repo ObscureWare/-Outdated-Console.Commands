@@ -2,7 +2,7 @@
 // <copyright file="CommandManager.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016 Sebastian Gruchacz
+// Copyright(c) 2016-2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,8 +31,9 @@ namespace Obscureware.Console.Commands.Internals
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Operations;
 
-    internal class CommandManager
+    internal class CommandManager : IAutoComplete
     {
         private readonly Dictionary<string, CommandInfo> _commands;
         private StringComparison _selectedComparison = StringComparison.InvariantCulture;
@@ -57,24 +58,44 @@ namespace Obscureware.Console.Commands.Internals
 
         public CommandManager(Type[] commands)
         {
-            this._commands = this.CheckCommands(commands);
+            this._commands = this.InitializeCommands(commands);
         }
 
+        /// <summary>
+        /// Finds command of given name (exact or insensitive match of full name)
+        /// </summary>
+        /// <param name="cmdName"></param>
+        /// <returns>Matching command or NULL</returns>
         public CommandInfo FindCommand(string cmdName)
         {
-
             return this._commands
-                .SingleOrDefault(pair =>
-                    pair.Key.Equals(cmdName, this._selectedComparison))
+                .SingleOrDefault(pair => pair.Key.Equals(cmdName, this._selectedComparison))
                 .Value;
         }
 
-        public IEnumerable<CommandInfo> GetAll()
+        /// <inheritdoc cref="IAutoComplete"/>
+        public IEnumerable<string> MatchAutoComplete(string text)
         {
-            return this._commands.Values.ToArray();
+            return this._commands
+                .Where(pair => pair.Key.StartsWith(text, this._selectedComparison))
+                .Select(pair => pair.Value.CommandModelBuilder.CommandName);
         }
 
-        private Dictionary<string, CommandInfo> CheckCommands(Type[] commands)
+        /// <summary>
+        /// Returns all commands. Sorted.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CommandInfo> GetAll()
+        {
+            return this._commands.Values.OrderBy(cmd => cmd.CommandModelBuilder.CommandName).ToArray();
+        }
+
+        /// <summary>
+        /// Compiles and verifies commands - checks implementation correctness during syntax check
+        /// </summary>
+        /// <param name="commands"></param>
+        /// <returns></returns>
+        private Dictionary<string, CommandInfo> InitializeCommands(Type[] commands)
         {
             Dictionary<string, CommandInfo> result = new Dictionary<string, CommandInfo>();
 

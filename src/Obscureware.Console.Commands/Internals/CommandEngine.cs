@@ -2,7 +2,7 @@
 // <copyright file="CommandEngine.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016 Sebastian Gruchacz
+// Copyright(c) 2016-2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,11 @@ namespace Obscureware.Console.Commands.Internals
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Text;
     using Obscureware.Console.Commands.Styles;
 
     using ObscureWare.Console;
+    using Operations;
 
     /// <summary>
     /// The command engine internal implementation.
@@ -52,6 +53,7 @@ namespace Obscureware.Console.Commands.Internals
         private readonly ICommandParserOptions _options;
 
         private readonly OutputManager _outputManager;
+        private readonly VirtualEntryLine _virtualLine;
 
         // NO default public constructor - by design
         internal CommandEngine(CommandManager commandManager, ICommandParserOptions options, CommandEngineStyles styles, HelpPrinter printHelper, IConsole console)
@@ -74,6 +76,7 @@ namespace Obscureware.Console.Commands.Internals
             }
 
             this._commandManager = commandManager;
+            this._virtualLine = new VirtualEntryLine(console, styles.Default);
             this._console = console;
             this._options = options;
             this._styles = styles;
@@ -174,7 +177,7 @@ namespace Obscureware.Console.Commands.Internals
             {
                 this.DisplayPrompt(context.GetCurrentPrompt()); // TODO: perhaps multi-color prompt support?
 
-                string cmdString = this._console.ReadLine();
+                string cmdString = this.ReadCommand();
                 if (string.IsNullOrWhiteSpace(cmdString))
                 {
                     continue;
@@ -182,6 +185,13 @@ namespace Obscureware.Console.Commands.Internals
 
                 this.ExecuteCommand(context, cmdString);
             }
+        }
+
+        private string ReadCommand()
+        {
+            // this._console.ReadLine()
+            // TODO: multi-pass auto-completion: commands -> command parts...
+            return this._virtualLine.GetUserEntry(this._commandManager);
         }
 
         private void DisplayPrompt(string promptText)
