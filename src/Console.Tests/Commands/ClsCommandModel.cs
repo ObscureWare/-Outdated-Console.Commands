@@ -2,7 +2,7 @@
 {
     using Obscureware.Console.Commands.Model;
 
-    [CommandDescriptorFor(typeof(ClsCommand))]
+    [CommandModelFor(typeof(ClsCommand))]
     [CommandName("cls")]
     [CommandDescription(@"Clears / Resets screen of the console.")]
     public class ClsCommandModel : CommandModel

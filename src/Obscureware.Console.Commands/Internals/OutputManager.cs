@@ -2,7 +2,7 @@
 // <copyright file="OutputManager.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016 Sebastian Gruchacz
+// Copyright(c) 2016-2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -82,12 +82,27 @@ namespace Obscureware.Console.Commands.Internals
             this._consoleInstance.WriteLine(this._engineStyles.Error, message);
         }
 
+        public void PrintError(string message)
+        {
+            this._consoleInstance.WriteLine(this._engineStyles.Warning, message);
+        }
+
         public CultureInfo UiCulture
         {
             get
             {
                 return this._uiCulture;
             }
+        }
+
+        public void WriteText(ConsoleFontColor color, string message)
+        {
+            this._consoleInstance.WriteText(color, message);
+        }
+
+        public void WriteLine(ConsoleFontColor color, string message)
+        {
+            this._consoleInstance.WriteLine(color, message);
         }
 
         public IOutputLineManager ReserveNewLine()

@@ -6,11 +6,11 @@
     ///
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class CommandDescriptorForAttribute : Attribute
+    public class CommandModelForAttribute : Attribute
     {
         public Type ModelledCommandType { get; private set; }
 
-        public CommandDescriptorForAttribute(Type modelledCommandType)
+        public CommandModelForAttribute(Type modelledCommandType)
         {
             this.ModelledCommandType = modelledCommandType;
         }

@@ -3,7 +3,7 @@
     using Obscureware.Console.Commands;
     using Obscureware.Console.Commands.Model;
 
-    [CommandDescriptorFor(typeof(DirCommand))]
+    [CommandModelFor(typeof(DirCommand))]
     [CommandName("dir")]
     [CommandDescription(@"Lists files withing current folder or repository state, depending on selected options.")]
     public class DirCommandModel : CommandModel

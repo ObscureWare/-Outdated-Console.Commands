@@ -2,7 +2,7 @@
 // <copyright file="ICommandOutput.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016 Sebastian Gruchacz
+// Copyright(c) 2016-2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,6 @@
 //   Defines the ICommandOutput interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 using ObscureWare.Console;
 
 namespace Obscureware.Console.Commands
@@ -50,7 +49,14 @@ namespace Obscureware.Console.Commands
 
         void PrintWarning(string message);
 
+        void PrintError(string message);
+
         CultureInfo UiCulture { get; }
+
+        void WriteText(ConsoleFontColor color, string message);
+
+
+        void WriteLine(ConsoleFontColor color, string message);
 
         /// <summary>
         /// Obtains first unused line area and returns management object.

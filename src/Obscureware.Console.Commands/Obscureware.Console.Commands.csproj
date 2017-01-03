@@ -93,7 +93,7 @@
     <Compile Include="Styles\CommandEngineStyles.cs" />
     <Compile Include="Model\CommandOptionFlagAttribute.cs" />
     <Compile Include="CommandCaseSensitivenes.cs" />
-    <Compile Include="Model\CommandDescriptorForAttribute.cs" />
+    <Compile Include="Model\CommandModelForAttribute.cs" />
     <Compile Include="Internals\CommandInfo.cs" />
     <Compile Include="Internals\CommandManager.cs" />
     <Compile Include="Model\CommandNameAttribute.cs" />

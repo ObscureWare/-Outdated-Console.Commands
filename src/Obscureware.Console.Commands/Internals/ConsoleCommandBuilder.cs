@@ -73,14 +73,14 @@
                 throw new ArgumentException($"Model type must inherit from {nameof(CommandModel)}.", nameof(modelType));
 
             // 2a. Model reverse pointer attribute check
-            var reverseTypeAtt = (CommandDescriptorForAttribute)
-                modelType.GetCustomAttributes(typeof(CommandDescriptorForAttribute), inherit: true).FirstOrDefault();
+            var reverseTypeAtt = (CommandModelForAttribute)
+                modelType.GetCustomAttributes(typeof(CommandModelForAttribute), inherit: true).FirstOrDefault();
             if (reverseTypeAtt == null)
                 throw new ArgumentException(
-                    $"Model type must be decorated with {nameof(CommandDescriptorForAttribute)}.", nameof(modelType));
+                    $"Model type must be decorated with {nameof(CommandModelForAttribute)}.", nameof(modelType));
             if (reverseTypeAtt.ModelledCommandType != commandType)
                 throw new ArgumentException(
-                    $"Model type attribute {nameof(CommandDescriptorForAttribute)} must point back to the command type.",
+                    $"Model type attribute {nameof(CommandModelForAttribute)} must point back to the command type.",
                     nameof(modelType));
 
             // 2b. Model, command name attribute check
