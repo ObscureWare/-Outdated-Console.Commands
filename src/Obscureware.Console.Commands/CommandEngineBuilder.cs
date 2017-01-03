@@ -110,7 +110,10 @@
             }
 
             var printHelper = new HelpPrinter(this._options, this._styles.HelpStyles, console);
-            var commandManager = new CommandManager(this._commands.Distinct().ToArray());
+            var commandManager = new CommandManager(this._commands.Distinct().ToArray())
+                {
+                    CommandsSensitivenes = this._options.CommandsSensitivenes
+                };
 
             var keywords = printHelper.GetCommandKeyWords();
             // TODO: here eventually construct other subsystems with keywords, and then merge them. Also validate different keywords from different subsystems...
