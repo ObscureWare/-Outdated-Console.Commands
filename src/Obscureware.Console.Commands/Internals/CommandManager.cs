@@ -82,7 +82,10 @@ namespace Obscureware.Console.Commands.Internals
             foreach (var commandType in commands)
             {
                 Tuple<CommandModelBuilder, IConsoleCommand> cmd = builder.ValidateAndBuildCommand(commandType);
-                result.Add(cmd.Item1.CommandName, new CommandInfo(cmd.Item2, cmd.Item1));
+                if (cmd != null)
+                {
+                    result.Add(cmd.Item1.CommandName, new CommandInfo(cmd.Item2, cmd.Item1));
+                }
             }
 
             return result;

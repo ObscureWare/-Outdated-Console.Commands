@@ -17,7 +17,9 @@
             if (commandType == null)
                 throw new ArgumentNullException(nameof(commandType));
             if (commandType.IsAbstract || commandType.IsInterface)
-                throw new ArgumentException($"Command type cannot be abstract or interface.", nameof(commandType));
+            {
+                return null; // ignore abstract layer...
+            };
             if (!typeof(IConsoleCommand).IsAssignableFrom(commandType))
                 throw new ArgumentException($"Command type must implement {nameof(IConsoleCommand)} interface.", nameof(commandType));
 
