@@ -26,7 +26,7 @@
 //   Defines the ICommandEngineContext interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     public interface ICommandEngineContext
     {

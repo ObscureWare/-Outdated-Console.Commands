@@ -26,11 +26,13 @@
 //   Defines the BasePropertyParser class - for all command model options parsers.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     using System;
     using System.Reflection;
     using Model;
+
+    using ObscureWare.Console.Commands;
 
     internal abstract class BasePropertyParser
     {

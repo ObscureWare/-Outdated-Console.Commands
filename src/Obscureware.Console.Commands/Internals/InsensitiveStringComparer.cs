@@ -26,7 +26,7 @@
 //   Defines InsensitiveStringComparer class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
 

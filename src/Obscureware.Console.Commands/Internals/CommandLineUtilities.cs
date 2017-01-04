@@ -26,7 +26,7 @@
 //   Defines some usefull routines for operating on command line.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Collections.Generic;

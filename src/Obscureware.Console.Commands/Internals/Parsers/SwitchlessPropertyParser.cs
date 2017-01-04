@@ -26,12 +26,14 @@
 //   Defines the SwitchlessPropertyParser class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     using System;
     using System.Reflection;
     using Converters;
     using Model;
+
+    using ObscureWare.Console.Commands;
 
     /// <summary>
     /// Command model's property parser for "free-roaming" options, that do not have dedicated switches. 

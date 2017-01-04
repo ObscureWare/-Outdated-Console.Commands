@@ -1,4 +1,4 @@
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     internal class ParsingFailure : IParsingResult
     {

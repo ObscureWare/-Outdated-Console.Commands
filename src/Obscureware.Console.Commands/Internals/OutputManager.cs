@@ -26,17 +26,18 @@
 //   Defines OutputManager class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System.Collections.Generic;
     using System.Globalization;
 
-    using Obscureware.Console.Commands.Styles;
+    using ObscureWare.Console.Commands;
+    using ObscureWare.Console.Commands.Styles;
 
     using ObscureWare.Console;
-    using Operations.Styles;
-    using Operations.TablePrinters;
-    using Operations.Tables;
+    using ObscureWare.Console.Operations.Styles;
+    using ObscureWare.Console.Operations.TablePrinters;
+    using ObscureWare.Console.Operations.Tables;
 
     public class OutputManager : ICommandOutput
     {

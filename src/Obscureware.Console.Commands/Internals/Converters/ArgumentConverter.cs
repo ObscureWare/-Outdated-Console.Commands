@@ -26,7 +26,7 @@
 //   Defines the ArgumentConverter implementation.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Converters
+namespace ObscureWare.Console.Commands.Internals.Converters
 {
     using System.Globalization;
 

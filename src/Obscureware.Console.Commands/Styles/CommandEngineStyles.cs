@@ -1,4 +1,4 @@
-﻿namespace Obscureware.Console.Commands.Styles
+﻿namespace ObscureWare.Console.Commands.Styles
 {
     using System.Drawing;
 

@@ -26,10 +26,11 @@
 //   Defines the core CommandParserOptions implementation of ICommandParserOptions interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     using System.Globalization;
     using System.Linq;
+
     using Shared;
 
     public class CommandParserOptions : ICommandParserOptions

@@ -1,4 +1,4 @@
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     using System.Globalization;
 

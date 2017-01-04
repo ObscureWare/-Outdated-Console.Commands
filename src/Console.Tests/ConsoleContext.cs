@@ -1,7 +1,7 @@
 ﻿namespace ConsoleTests
 {
     using System;
-    using Obscureware.Console.Commands;
+    using ObscureWare.Console.Commands;
 
     public class ConsoleContext : ICommandEngineContext
     {

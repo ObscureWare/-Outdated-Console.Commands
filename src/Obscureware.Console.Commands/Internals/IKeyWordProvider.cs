@@ -26,7 +26,7 @@
 //   Defines IKeyWordProvider interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System.Collections.Generic;
 

@@ -26,13 +26,16 @@
 //   Defines the BaseSwitchPropertyParser base class for all parsers using value-switch syntax.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Model;
+
+    using ObscureWare.Console.Commands;
+
     using Shared;
 
     internal abstract class BaseSwitchPropertyParser : BasePropertyParser

@@ -1,8 +1,8 @@
 namespace ConsoleApplication1.Commands
 {
     using ConsoleTests;
-    using Obscureware.Console.Commands;
-    using Obscureware.Console.Commands.Model;
+    using ObscureWare.Console.Commands;
+    using ObscureWare.Console.Commands.Model;
 
     [CommandModel(typeof(ExitCommandModel))]
     public class ExitCommand : IConsoleCommand

@@ -26,13 +26,14 @@
 //   Defines ConvertersManager class that manages available data converters - used to convert string into real model values.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using Converters;
+
     using Shared;
 
     /// <summary>

@@ -2,8 +2,8 @@
 {
     using System.Globalization;
 
-    using Obscureware.Console.Commands;
-    using Obscureware.Console.Commands.Styles;
+    using ObscureWare.Console.Commands;
+    using ObscureWare.Console.Commands.Styles;
 
     using ObscureWare.Console;
 

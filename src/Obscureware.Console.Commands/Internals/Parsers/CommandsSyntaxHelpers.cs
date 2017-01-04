@@ -26,7 +26,7 @@
 //   Defines the CommandsSyntaxHelpers class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     using System;
     using System.Collections.Generic;

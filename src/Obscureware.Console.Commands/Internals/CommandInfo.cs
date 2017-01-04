@@ -26,8 +26,10 @@
 //   Defines the CommandInfo record.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
+    using ObscureWare.Console.Commands;
+
     /// <summary>
     /// Precompilled command information record
     /// </summary>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obscureware.Console.Commands", "Obscureware.Console.Commands\Obscureware.Console.Commands.csproj", "{C72CD243-E0BF-4F13-803B-0C1DF97B9008}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObscureWare.Console.Commands", "Obscureware.Console.Commands\ObscureWare.Console.Commands.csproj", "{C72CD243-E0BF-4F13-803B-0C1DF97B9008}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObscureWare.Console.Commands.Tests", "ObscureWare.Console.Tests\ObscureWare.Console.Commands.Tests.csproj", "{97CEFF9B-CCFC-4B26-921A-6FD142A780D3}"
 EndProject
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		..\README.md = ..\README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Obscureware.Shared", "..\..\Obscureware.Shared\src\Obscureware.Shared\Obscureware.Shared.csproj", "{286F5FE3-B75F-41B0-98BF-095F4617513A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{CFB16C5C-EE36-4ACE-9513-0AD18DFF9D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFB16C5C-EE36-4ACE-9513-0AD18DFF9D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB16C5C-EE36-4ACE-9513-0AD18DFF9D00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{286F5FE3-B75F-41B0-98BF-095F4617513A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{286F5FE3-B75F-41B0-98BF-095F4617513A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{286F5FE3-B75F-41B0-98BF-095F4617513A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{286F5FE3-B75F-41B0-98BF-095F4617513A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿namespace Obscureware.Console.Commands.Model
+﻿namespace ObscureWare.Console.Commands.Model
 {
     using System;
 

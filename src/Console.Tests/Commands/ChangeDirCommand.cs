@@ -3,8 +3,8 @@ namespace ConsoleApplication1.Commands
     using System;
     using System.IO;
 
-    using Obscureware.Console.Commands;
-    using Obscureware.Console.Commands.Model;
+    using ObscureWare.Console.Commands;
+    using ObscureWare.Console.Commands.Model;
 
     [CommandModel(typeof(ChangeDirCommandModel))]
     public class ChangeDirCommand : IConsoleCommand

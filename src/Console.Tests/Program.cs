@@ -2,8 +2,8 @@
 {
     using System;
     using System.Drawing;
-    using Obscureware.Console.Operations;
     using ObscureWare.Console;
+    using ObscureWare.Console.Operations;
 
     internal static class Program
     {

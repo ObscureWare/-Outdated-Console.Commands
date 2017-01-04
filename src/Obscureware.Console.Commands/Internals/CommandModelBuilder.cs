@@ -2,7 +2,7 @@
 // <copyright file="CommandModelBuilder.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016 Sebastian Gruchacz
+// Copyright(c) 2016-2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 //   Defines internal class responsible for building command's model from given command arguments.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Collections.Generic;
@@ -34,6 +34,8 @@ namespace Obscureware.Console.Commands.Internals
     using System.Reflection;
     using Converters;
     using Model;
+
+    using ObscureWare.Console.Commands;
 
     using Parsers;
     using Shared;

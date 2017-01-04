@@ -2,10 +2,11 @@
 {
     using System;
     using System.IO;
-    using Obscureware.Console.Commands;
-    using Obscureware.Console.Commands.Model;
-    using Obscureware.Console.Operations.Tables;
-    using Obscureware.Shared;
+    using ObscureWare.Console.Commands;
+    using ObscureWare.Console.Commands.Model;
+
+    using ObscureWare.Console.Operations.Tables;
+    using ObscureWare.Shared;
 
     [CommandModel(typeof(DirCommandModel))]
     public class DirCommand : IConsoleCommand

@@ -37,16 +37,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ObscureWare.Console, Version=0.2.6.33198, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Core.0.2.6.33198\lib\net452\ObscureWare.Console.dll</HintPath>
+    <Reference Include="ObscureWare.Console, Version=0.2.7.16017, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Core.0.2.7.16017\lib\net452\ObscureWare.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Console.Operations, Version=0.2.1.42496, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.1.42496\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+    <Reference Include="ObscureWare.Console.Operations, Version=0.2.2.16266, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.2.16266\lib\net452\ObscureWare.Console.Operations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Shared, Version=0.1.3.42434, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.1.42496\lib\net452\Obscureware.Shared.dll</HintPath>
+    <Reference Include="ObscureWare.Shared, Version=0.1.4.16266, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.2.16266\lib\net452\ObscureWare.Shared.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -82,9 +82,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Obscureware.Console.Commands\Obscureware.Console.Commands.csproj">
+    <ProjectReference Include="..\Obscureware.Console.Commands\ObscureWare.Console.Commands.csproj">
       <Project>{C72CD243-E0BF-4F13-803B-0C1DF97B9008}</Project>
-      <Name>Obscureware.Console.Commands</Name>
+      <Name>ObscureWare.Console.Commands</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

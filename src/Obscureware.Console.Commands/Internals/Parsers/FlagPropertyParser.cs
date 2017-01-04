@@ -26,11 +26,13 @@
 //   Defines the FlagPropertyParser class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     using System;
     using System.Reflection;
     using Model;
+
+    using ObscureWare.Console.Commands;
 
     /// <summary>
     /// Property parser for flags (BOOL)

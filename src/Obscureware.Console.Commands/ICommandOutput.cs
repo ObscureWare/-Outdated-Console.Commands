@@ -26,14 +26,13 @@
 //   Defines the ICommandOutput interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-using ObscureWare.Console;
 
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     using System.Collections.Generic;
     using System.Globalization;
-
-    using Operations.Tables;
+    
+    using ObscureWare.Console.Operations.Tables;
 
     public interface ICommandOutput
     {

@@ -26,7 +26,7 @@
 //   Defines the ICommandEngine type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     /// <summary>
     /// The CommandEngine interface.

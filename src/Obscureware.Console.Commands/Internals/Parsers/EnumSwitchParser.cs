@@ -26,12 +26,14 @@
 //   Defines the EnumSwitchParser class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals.Parsers
+namespace ObscureWare.Console.Commands.Internals.Parsers
 {
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using Model;
+
+    using ObscureWare.Console.Commands;
 
     internal class EnumSwitchParser : BaseSwitchPropertyParser
     {

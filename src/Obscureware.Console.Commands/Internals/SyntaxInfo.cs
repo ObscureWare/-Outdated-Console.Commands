@@ -26,11 +26,13 @@
 //   Defines SyntaxInfo class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Linq;
     using System.Reflection;
+
+    using ObscureWare.Console.Commands;
 
     internal class SyntaxInfo
     {

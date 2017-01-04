@@ -26,16 +26,17 @@
 //   Defines the ICommandEngine implementation.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using Obscureware.Console.Commands.Styles;
+
+    using ObscureWare.Console.Commands;
+    using ObscureWare.Console.Commands.Styles;
 
     using ObscureWare.Console;
-    using Operations;
+    using ObscureWare.Console.Operations;
 
     /// <summary>
     /// The command engine internal implementation.

@@ -26,7 +26,7 @@
 //   Defines various public extension methods.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     using System;
     using System.Collections.Generic;

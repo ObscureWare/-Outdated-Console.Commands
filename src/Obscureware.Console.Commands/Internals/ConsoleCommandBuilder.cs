@@ -1,8 +1,10 @@
-﻿namespace Obscureware.Console.Commands.Internals
+﻿namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Linq;
     using Model;
+
+    using ObscureWare.Console.Commands;
 
     internal class ConsoleCommandBuilder
     {

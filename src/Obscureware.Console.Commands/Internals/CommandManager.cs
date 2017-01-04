@@ -26,12 +26,15 @@
 //   Defines the CommandManager internal class responsible for holding collection of known commands.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands.Internals
+namespace ObscureWare.Console.Commands.Internals
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Operations;
+
+    using ObscureWare.Console.Commands;
+
+    using ObscureWare.Console.Operations;
 
     internal class CommandManager : IAutoComplete
     {

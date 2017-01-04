@@ -1,16 +1,14 @@
-﻿namespace Obscureware.Console.Commands
+﻿namespace ObscureWare.Console.Commands
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
-    using Internals;
-
-    using Obscureware.Console.Commands.Styles;
-
+    using ObscureWare.Console.Commands.Internals;
     using ObscureWare.Console;
-    using Shared;
+    using ObscureWare.Console.Commands.Styles;
+    using ObscureWare.Shared;
 
     /// <summary>
     /// Fluent-syntax based CommandEngine builder

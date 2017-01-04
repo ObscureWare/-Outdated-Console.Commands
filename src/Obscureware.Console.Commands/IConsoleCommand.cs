@@ -26,7 +26,7 @@
 //   Defines the core IConsoleCommand interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     public interface IConsoleCommand
     {

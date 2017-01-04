@@ -26,7 +26,7 @@
 //   Defines the SwitchlessOptionsMode enumeration.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     public enum SwitchlessOptionsMode
     {

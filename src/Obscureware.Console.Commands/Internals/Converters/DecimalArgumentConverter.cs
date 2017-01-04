@@ -1,4 +1,4 @@
-namespace Obscureware.Console.Commands.Internals.Converters
+namespace ObscureWare.Console.Commands.Internals.Converters
 {
     using System;
     using System.Globalization;

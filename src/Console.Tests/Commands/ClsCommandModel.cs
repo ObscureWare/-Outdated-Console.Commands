@@ -1,6 +1,6 @@
 ﻿namespace ConsoleApplication1.Commands
 {
-    using Obscureware.Console.Commands.Model;
+    using ObscureWare.Console.Commands.Model;
 
     [CommandModelFor(typeof(ClsCommand))]
     [CommandName("cls")]

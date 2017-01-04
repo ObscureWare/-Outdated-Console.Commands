@@ -26,7 +26,7 @@
 //   Defines the CommandOptionNameAttribute enumeration.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace Obscureware.Console.Commands
+namespace ObscureWare.Console.Commands
 {
     using System;
 
