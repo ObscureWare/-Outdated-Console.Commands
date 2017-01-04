@@ -36,7 +36,7 @@ namespace ObscureWare.Console.Commands.Internals
 
     using ObscureWare.Console.Operations;
 
-    internal class CommandManager : IAutoComplete
+    internal class CommandManager
     {
         private readonly Dictionary<string, CommandInfo> _commands;
         private StringComparison _selectedComparison = StringComparison.InvariantCulture;
@@ -77,11 +77,11 @@ namespace ObscureWare.Console.Commands.Internals
         }
 
         /// <inheritdoc cref="IAutoComplete"/>
-        public IEnumerable<string> MatchAutoComplete(string text)
+        public IEnumerable<CommandInfo> MatchCommandsForAutoComplete(string text)
         {
             return this._commands
                 .Where(pair => pair.Key.StartsWith(text, this._selectedComparison))
-                .Select(pair => pair.Value.CommandModelBuilder.CommandName);
+                .Select(pair => pair.Value);
         }
 
         /// <summary>

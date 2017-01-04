@@ -56,6 +56,8 @@ namespace ObscureWare.Console.Commands.Internals
         private readonly OutputManager _outputManager;
         private readonly VirtualEntryLine _virtualLine;
 
+        private CommandAutoCompletionProvider _autoCompletionManager;
+
         // NO default public constructor - by design
         internal CommandEngine(CommandManager commandManager, ICommandParserOptions options, CommandEngineStyles styles, HelpPrinter printHelper, IConsole console)
         {
@@ -77,6 +79,7 @@ namespace ObscureWare.Console.Commands.Internals
             }
 
             this._commandManager = commandManager;
+            this._autoCompletionManager = new CommandAutoCompletionProvider(this._commandManager);
             this._virtualLine = new VirtualEntryLine(console, styles.Default);
             this._console = console;
             this._options = options;
@@ -190,9 +193,8 @@ namespace ObscureWare.Console.Commands.Internals
 
         private string ReadCommand()
         {
-            // this._console.ReadLine()
-            // TODO: multi-pass auto-completion: commands -> command parts...
-            return this._virtualLine.GetUserEntry(this._commandManager);
+            // this._console.ReadLine() // use for simple behavior
+            return this._virtualLine.GetUserEntry(this._autoCompletionManager);
         }
 
         private void DisplayPrompt(string promptText)

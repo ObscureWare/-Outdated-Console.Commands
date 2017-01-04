@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandParserOptions.cs" />
+    <Compile Include="Internals\CommandAutoCompletionProvider.cs" />
     <Compile Include="Internals\CommandLineUtilities.cs" />
     <Compile Include="CommandEngineBuilder.cs" />
     <Compile Include="Extensions.cs" />
