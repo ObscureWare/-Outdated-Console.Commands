@@ -34,8 +34,6 @@ namespace ObscureWare.Console.Commands.Internals
 
     using ObscureWare.Console.Commands;
 
-    using ObscureWare.Console.Operations;
-
     internal class CommandManager
     {
         private readonly Dictionary<string, CommandInfo> _commands;
@@ -76,7 +74,6 @@ namespace ObscureWare.Console.Commands.Internals
                 .Value;
         }
 
-        /// <inheritdoc cref="IAutoComplete"/>
         public IEnumerable<CommandInfo> MatchCommandsForAutoComplete(string text)
         {
             return this._commands

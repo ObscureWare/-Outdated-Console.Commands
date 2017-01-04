@@ -37,16 +37,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ObscureWare.Console, Version=0.2.7.16017, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Core.0.2.7.16017\lib\net452\ObscureWare.Console.dll</HintPath>
+    <Reference Include="ObscureWare.Console, Version=0.2.8.42712, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Core.0.2.8.42712\lib\net452\ObscureWare.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ObscureWare.Console.Operations, Version=0.2.6.22882, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.6.22882\lib\net452\ObscureWare.Console.Operations.dll</HintPath>
+    <Reference Include="Obscureware.Console.Operations, Version=0.2.8.42937, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.8.42937\lib\net452\Obscureware.Console.Operations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ObscureWare.Shared, Version=0.1.4.16778, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.6.22882\lib\net452\ObscureWare.Shared.dll</HintPath>
+    <Reference Include="Obscureware.Shared, Version=0.1.4.32865, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.8.42937\lib\net452\Obscureware.Shared.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

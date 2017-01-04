@@ -45,6 +45,7 @@ namespace ObscureWare.Console.Commands.Internals
             this._manager = manager;
         }
 
+        /// <inheritdoc cref="IAutoComplete"/>
         public IEnumerable<string> MatchAutoComplete(string text)
         {
             // now it only suggests commands, later, when found only one command and having something more 
@@ -55,7 +56,7 @@ namespace ObscureWare.Console.Commands.Internals
             // return commands
             return matchingCommands.Select(cmdInfo => cmdInfo.CommandModelBuilder.CommandName);
 
-            // TODO: return command + command part...
+            // TODO: return command + command part... very low priority
         }
     }
 }
