@@ -34,12 +34,12 @@
       <HintPath>..\packages\ObscureWare.Console.Core.0.2.8.42712\lib\net452\ObscureWare.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Console.Operations, Version=0.2.8.42937, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.8.42937\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+    <Reference Include="ObscureWare.Console.Operations, Version=0.2.9.25878, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.9.25878\lib\net452\ObscureWare.Console.Operations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Shared, Version=0.1.4.32865, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.8.42937\lib\net452\Obscureware.Shared.dll</HintPath>
+    <Reference Include="ObscureWare.Shared, Version=0.1.4.16778, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.2.9.25878\lib\net452\ObscureWare.Shared.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -80,6 +80,7 @@
     <Compile Include="Internals\Parsers\IParsingResult.cs" />
     <Compile Include="Internals\Parsers\ParsingFailure.cs" />
     <Compile Include="Internals\Parsers\ParsingSuccess.cs" />
+    <Compile Include="Internals\SingleManagedLineManager.cs" />
     <Compile Include="IValueParsingOptions.cs" />
     <Compile Include="Internals\SyntaxInfo.cs" />
     <Compile Include="CommandOptionNameAttribute.cs" />

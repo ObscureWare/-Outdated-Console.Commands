@@ -120,11 +120,24 @@ namespace ObscureWare.Console.Commands.Internals
             this._consoleInstance.WriteLine(color, message);
         }
 
+        /// <summary>
+        /// Reserved whole line (if cursor is at beginning - current, if not - next) and puts cursor on the beginning of line below
+        /// </summary>
+        /// <returns></returns>
         public IOutputLineManager ReserveNewLine()
         {
-            // TODO: returned line manager must be managed in case it needs to be repositioned if buffer boundaries change...
-
-            throw new System.NotImplementedException();
+            var currentPosition = this._consoleInstance.GetCursorPosition();
+            if (currentPosition.X == 0)
+            {
+                this._consoleInstance.SetCursorPosition(0, currentPosition.Y + 1);
+                return new SingleManagedLineManager(this._consoleInstance, currentPosition.Y, this._consoleInstance.WindowWidth); // line is empty, reserve it
+            }
+            else
+            {
+                // automatically moves cursor below reserved line
+                this._consoleInstance.SetCursorPosition(0, currentPosition.Y + 2);
+                return new SingleManagedLineManager(this._consoleInstance, currentPosition.Y + 1, this._consoleInstance.WindowWidth); // ignore X, just reserve whole next line 
+            }
         }
     }
 }
