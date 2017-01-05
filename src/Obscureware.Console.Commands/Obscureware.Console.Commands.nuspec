@@ -10,7 +10,10 @@
     <projectUrl>https://github.com/ObscureWare/Console.Commands/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This library is robust, flexible console command engine that cooperates with our Console.Core coloring engine. It supports various types of syntax and provides separation of models, commands and console output, which is good for proper unit testing.</description>
-    <releaseNotes>Version BETA. Will be largely extended with much more capabilities.</releaseNotes>
+    <releaseNotes>
+      Version BETA.
+      SingleManagedLineManager now supports atomic operations. Ready to start working one parallel printing of progress etc.
+    </releaseNotes>
     <copyright>Copyright © Sebastian Gruchacz 2016-2017</copyright>
     <tags>Console,commands,engine,management</tags>
   </metadata>

@@ -102,44 +102,47 @@ namespace ObscureWare.Console.Commands.Internals
                 throw new ArgumentNullException(nameof(text));
             }
 
-            // TODO: atomic ops?
-
-            var backupPosition = this.consoleInstance.GetCursorPosition();
-
-            int remainingArea = this.windowWidth - this.currentPosition;
-            if (remainingArea > text.Length)
+            lock (this.consoleInstance.AtomicHandle)
             {
-                this.consoleInstance.SetCursorPosition(this.currentPosition, this.lineY);
-                this.consoleInstance.WriteText(style, text);
-                this.currentPosition += text.Length;
-            }
-            else
-            {
-                if (remainingArea > 0)
+                var backupPosition = this.consoleInstance.GetCursorPosition();
+
+                int remainingArea = this.windowWidth - this.currentPosition;
+                if (remainingArea > text.Length)
                 {
                     this.consoleInstance.SetCursorPosition(this.currentPosition, this.lineY);
-                    this.consoleInstance.WriteText(style, text.Substring(0, remainingArea));
-                    this.currentPosition += remainingArea;
+                    this.consoleInstance.WriteText(style, text);
+                    this.currentPosition += text.Length;
                 }
-            }
+                else
+                {
+                    if (remainingArea > 0)
+                    {
+                        this.consoleInstance.SetCursorPosition(this.currentPosition, this.lineY);
+                        this.consoleInstance.WriteText(style, text.Substring(0, remainingArea));
+                        this.currentPosition += remainingArea;
+                    }
+                }
 
-            this.consoleInstance.SetCursorPosition(backupPosition.X, backupPosition.Y);
+                this.consoleInstance.SetCursorPosition(backupPosition.X, backupPosition.Y);
+            }
         }
 
         public void Clear()
         {
-            // TODO: atomic ops?
-            var backupPosition = this.consoleInstance.GetCursorPosition();
+            lock (this.consoleInstance.AtomicHandle)
+            {
+                var backupPosition = this.consoleInstance.GetCursorPosition();
 
-            // TODO: pass colors? As parameter?
+                // TODO: pass colors? As parameter?
 
-            // now using default color...
-            this.consoleInstance.SetCursorPosition(0, this.lineY);
-            this.consoleInstance.WriteText(this.emptifier);
-            this.consoleInstance.SetCursorPosition(0, this.lineY);
-            this.currentPosition = 0;
+                // now using default color...
+                this.consoleInstance.SetCursorPosition(0, this.lineY);
+                this.consoleInstance.WriteText(this.emptifier);
+                this.consoleInstance.SetCursorPosition(0, this.lineY);
+                this.currentPosition = 0;
 
-            this.consoleInstance.SetCursorPosition(backupPosition.X, backupPosition.Y);
+                this.consoleInstance.SetCursorPosition(backupPosition.X, backupPosition.Y);
+            }
         }
     }
 }
