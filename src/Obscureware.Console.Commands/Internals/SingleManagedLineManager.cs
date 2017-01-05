@@ -104,6 +104,8 @@ namespace ObscureWare.Console.Commands.Internals
 
             // TODO: atomic ops?
 
+            var backupPosition = this.consoleInstance.GetCursorPosition();
+
             int remainingArea = this.windowWidth - this.currentPosition;
             if (remainingArea > text.Length)
             {
@@ -120,11 +122,15 @@ namespace ObscureWare.Console.Commands.Internals
                     this.currentPosition += remainingArea;
                 }
             }
+
+            this.consoleInstance.SetCursorPosition(backupPosition.X, backupPosition.Y);
         }
 
         public void Clear()
         {
             // TODO: atomic ops?
+            var backupPosition = this.consoleInstance.GetCursorPosition();
+
             // TODO: pass colors? As parameter?
 
             // now using default color...
@@ -132,6 +138,8 @@ namespace ObscureWare.Console.Commands.Internals
             this.consoleInstance.WriteText(this.emptifier);
             this.consoleInstance.SetCursorPosition(0, this.lineY);
             this.currentPosition = 0;
+
+            this.consoleInstance.SetCursorPosition(backupPosition.X, backupPosition.Y);
         }
     }
 }
