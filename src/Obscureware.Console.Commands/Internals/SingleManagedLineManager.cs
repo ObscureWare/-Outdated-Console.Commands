@@ -29,6 +29,7 @@
 namespace ObscureWare.Console.Commands.Internals
 {
     using System;
+    using System.Linq;
 
     /// <summary>
     /// The single managed line manager.
@@ -100,6 +101,10 @@ namespace ObscureWare.Console.Commands.Internals
             if (text == null)
             {
                 throw new ArgumentNullException(nameof(text));
+            }
+            if (text.ToCharArray().Any(ch => (int) ch < 32))
+            {
+                throw new ArgumentException("Messages that contain special characters are forbidden.", paramName: nameof(text));
             }
 
             lock (this.consoleInstance.AtomicHandle)

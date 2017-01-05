@@ -12,7 +12,7 @@
     <description>This library is robust, flexible console command engine that cooperates with our Console.Core coloring engine. It supports various types of syntax and provides separation of models, commands and console output, which is good for proper unit testing.</description>
     <releaseNotes>
       Version BETA.
-      Fixed SingleManagedLineManager instances created also in atomic style to avoid shared lines...
+      SingleManagedLineManager now rejects special characters (ASCI &lt; 32). I've been thinking about validating model text (including help as well, but this would be just waste of time - both mine and in the runtime. If programmer is so stupid let he receive stupid results :-/
     </releaseNotes>
     <copyright>Copyright © Sebastian Gruchacz 2016-2017</copyright>
     <tags>Console,commands,engine,management</tags>
