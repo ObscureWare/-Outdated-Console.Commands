@@ -126,17 +126,20 @@ namespace ObscureWare.Console.Commands.Internals
         /// <returns></returns>
         public IOutputLineManager ReserveNewLine()
         {
-            var currentPosition = this._consoleInstance.GetCursorPosition();
-            if (currentPosition.X == 0)
+            lock (this._consoleInstance.AtomicHandle)
             {
-                this._consoleInstance.SetCursorPosition(0, currentPosition.Y + 1);
-                return new SingleManagedLineManager(this._consoleInstance, currentPosition.Y, this._consoleInstance.WindowWidth); // line is empty, reserve it
-            }
-            else
-            {
-                // automatically moves cursor below reserved line
-                this._consoleInstance.SetCursorPosition(0, currentPosition.Y + 2);
-                return new SingleManagedLineManager(this._consoleInstance, currentPosition.Y + 1, this._consoleInstance.WindowWidth); // ignore X, just reserve whole next line 
+                var currentPosition = this._consoleInstance.GetCursorPosition();
+                if (currentPosition.X == 0)
+                {
+                    this._consoleInstance.SetCursorPosition(0, currentPosition.Y + 1);
+                    return new SingleManagedLineManager(this._consoleInstance, currentPosition.Y, this._consoleInstance.WindowWidth); // line is empty, reserve it
+                }
+                else
+                {
+                    // automatically moves cursor below reserved line
+                    this._consoleInstance.SetCursorPosition(0, currentPosition.Y + 2);
+                    return new SingleManagedLineManager(this._consoleInstance, currentPosition.Y + 1, this._consoleInstance.WindowWidth); // ignore X, just reserve whole next line 
+                }
             }
         }
     }
