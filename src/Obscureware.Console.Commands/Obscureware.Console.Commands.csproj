@@ -34,12 +34,12 @@
       <HintPath>..\packages\ObscureWare.Console.Core.0.3.1.469\lib\net452\ObscureWare.Console.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Console.Operations, Version=0.3.5.2343, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.3.5.2343\lib\net452\Obscureware.Console.Operations.dll</HintPath>
+    <Reference Include="ObscureWare.Console.Operations, Version=0.3.6.17490, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.3.6.17490\lib\net452\ObscureWare.Console.Operations.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Obscureware.Shared, Version=0.1.4.18632, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObscureWare.Console.Operations.0.3.5.2343\lib\net452\Obscureware.Shared.dll</HintPath>
+    <Reference Include="ObscureWare.Shared, Version=0.1.4.17490, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObscureWare.Console.Operations.0.3.6.17490\lib\net452\ObscureWare.Shared.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
