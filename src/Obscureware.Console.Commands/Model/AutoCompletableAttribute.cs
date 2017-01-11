@@ -1,8 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MandatoryAttribute.cs" company="Obscureware Solutions">
+// <copyright file="AutoCompletableAttribute.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016-2017 Sebastian Gruchacz
+// Copyright(c) 2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,33 @@
 // SOFTWARE.
 // </copyright>
 // <summary>
-//   Defines the MandatoryAttribute command model type.
+//   Defines the AutoCompletableAttribute command model type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace ObscureWare.Console.Commands.Model
 {
     using System;
+    using Internals;
 
-    public class MandatoryAttribute : Attribute
+    /// <summary>
+    /// Depicts property of the <see cref="CommandModel"/> that can be backed by auto-completion. Not required for Enum-based proprieties (will be ignored and not run through <see cref="ICommandAutoCompletion"/>.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class AutoCompletableAttribute : Attribute
     {
-        public bool IsParameterMandatory { get; private set; }
-
-        public MandatoryAttribute(bool isParameterMandatory = true)
+        public AutoCompletableAttribute(string description)
         {
-            this.IsParameterMandatory = isParameterMandatory;
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(description));
+            }
+
+            this.Description = description;
         }
+
+        /// <summary>
+        /// Auto-completion description - used by <see cref="HelpPrinter"/>
+        /// </summary>
+        public string Description { get; }
     }
 }

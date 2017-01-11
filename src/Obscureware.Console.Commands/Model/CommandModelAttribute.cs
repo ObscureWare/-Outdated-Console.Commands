@@ -1,8 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MandatoryAttribute.cs" company="Obscureware Solutions">
+// <copyright file="CommandModelAttribute.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016-2017 Sebastian Gruchacz
+// Copyright(c) 2016 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,29 @@
 // SOFTWARE.
 // </copyright>
 // <summary>
-//   Defines the MandatoryAttribute command model type.
+//   Defines the CommandModelAttribute command model type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace ObscureWare.Console.Commands.Model
 {
     using System;
 
-    public class MandatoryAttribute : Attribute
+    /// <summary>
+    ///
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class CommandModelAttribute : Attribute
     {
-        public bool IsParameterMandatory { get; private set; }
+        public Type ModelType { get; private set; }
 
-        public MandatoryAttribute(bool isParameterMandatory = true)
+        public CommandModelAttribute(Type modelType)
         {
-            this.IsParameterMandatory = isParameterMandatory;
+            if (modelType == null)
+            {
+                throw new ArgumentNullException(nameof(modelType));
+            }
+
+            this.ModelType = modelType;
         }
     }
 }

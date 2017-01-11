@@ -1,13 +1,14 @@
 namespace ConsoleApplication1.Commands
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
 
     using ObscureWare.Console.Commands;
     using ObscureWare.Console.Commands.Model;
 
     [CommandModel(typeof(ChangeDirCommandModel))]
-    public class ChangeDirCommand : IConsoleCommand
+    public class ChangeDirCommand : IConsoleCommand, ICommandAutoCompletion
     {
         /// <inheritdoc />
         public void Execute(object contextObject, ICommandOutput output, object runtimeModel)
@@ -53,6 +54,41 @@ namespace ConsoleApplication1.Commands
 
                 //(contextObject as ConsoleContext).
             }
+        }
+
+        /// <inheritdoc />
+        public IEnumerable<string> AutoCompleteCommand(object contextObject, CommandModel runtimeModel, string targetPropertyName, string matchText)
+        {
+            ChangeDirCommandModel model = runtimeModel as ChangeDirCommandModel;
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            switch (targetPropertyName)
+            {
+                case nameof(ChangeDirCommandModel.Target):
+                {
+                    try
+                    {
+                        string rootFolder = Environment.CurrentDirectory;
+
+                        // TODO: implement
+                        // 1. check current folder
+                        // 2. check if current + match exists
+                        // 2a. if Yes - scan sub-folders and return
+                        // 2b. if Not and does not end with directory delimiter - cut till last delimiter and use as path and remainder as StartsWith() filter
+                    }
+                    catch (Exception)
+                    {
+                            yield break; // just ignore invalid characters / or paths
+                        }
+
+                    break;
+                }
+            }
+
+            yield break;
         }
     }
 }

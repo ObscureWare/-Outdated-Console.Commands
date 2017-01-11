@@ -1,5 +1,6 @@
 namespace ConsoleApplication1.Commands
 {
+    using System;
     using ObscureWare.Console.Commands;
     using ObscureWare.Console.Commands.Model;
 
@@ -14,9 +15,11 @@ namespace ConsoleApplication1.Commands
         [CommandOptionName(@"target")]
         [Mandatory(false)]
         [CommandOptionSwitchless(0)]
-        [CommandDescription("Specifies how directory shall be changed. Nothing or '.' will remain in current folder. '..' Will go one level up. '\\' will immediately jump to the root. Anything else means subdirectory or exact location - if has rooted format..")]
-        // TODO: add multi-line descriptions / multiple attributes
-        // TODO: perhaps differentiate command and option descriptions
+        [AutoCompletable(@"Returns sub-directories of current directory.")]
+        [CommandDescription("Specifies how directory shall be changed. Anything except below special values means subdirectory or exact location - if has rooted format...")]
+        [SpecialValueDescription("nothing or '.'", "Current folder will not change")]
+        [SpecialValueDescription("'..'", "Current folder will go one level up")]
+        [SpecialValueDescription("'\\'", "Current folder will immediately jump to the root")]
         public string Target { get; set; }
     }
 }

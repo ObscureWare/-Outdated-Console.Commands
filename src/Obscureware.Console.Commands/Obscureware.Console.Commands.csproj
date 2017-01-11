@@ -93,8 +93,12 @@
     <Compile Include="Internals\Parsers\CommandsSyntaxHelpers.cs" />
     <Compile Include="Internals\SensitiveStringComparer.cs" />
     <Compile Include="Internals\Parsers\SwitchlessPropertyParser.cs" />
+    <Compile Include="Model\AutoCompletableAttribute.cs" />
     <Compile Include="Model\CommandDescriptionAttribute.cs" />
     <Compile Include="Internals\CommandEngine.cs" />
+    <Compile Include="Model\CommandModelAttribute.cs" />
+    <Compile Include="Model\ICommandAutoCompletion.cs" />
+    <Compile Include="Model\SpecialValueDescriptionAttribute.cs" />
     <Compile Include="Styles\CommandEngineStyles.cs" />
     <Compile Include="Model\CommandOptionFlagAttribute.cs" />
     <Compile Include="CommandCaseSensitivenes.cs" />

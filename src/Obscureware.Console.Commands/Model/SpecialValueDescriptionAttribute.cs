@@ -1,8 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MandatoryAttribute.cs" company="Obscureware Solutions">
+// <copyright file="SpecialValueDescriptionAttribute.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016-2017 Sebastian Gruchacz
+// Copyright(c) 2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,36 @@
 // SOFTWARE.
 // </copyright>
 // <summary>
-//   Defines the MandatoryAttribute command model type.
+//   Defines the SpecialValueDescriptionAttribute command model type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace ObscureWare.Console.Commands.Model
 {
     using System;
 
-    public class MandatoryAttribute : Attribute
+    /// <summary>
+    /// Decorate command model's property with this attribute to provide special values descriptions in help.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    public class SpecialValueDescriptionAttribute : Attribute
     {
-        public bool IsParameterMandatory { get; private set; }
+        public string Value { get; }
+        public string Description { get; }
 
-        public MandatoryAttribute(bool isParameterMandatory = true)
+        public SpecialValueDescriptionAttribute(string specialValue, string description)
         {
-            this.IsParameterMandatory = isParameterMandatory;
+            if (string.IsNullOrWhiteSpace(specialValue))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(specialValue));
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(description));
+            }
+
+            this.Value = specialValue;
+            this.Description = description;
         }
     }
 }

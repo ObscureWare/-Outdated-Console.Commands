@@ -1,8 +1,8 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MandatoryAttribute.cs" company="Obscureware Solutions">
+// <copyright file="AutoCompletableAttribute.cs" company="Obscureware Solutions">
 // MIT License
 //
-// Copyright(c) 2016-2017 Sebastian Gruchacz
+// Copyright(c) 2017 Sebastian Gruchacz
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,20 +23,23 @@
 // SOFTWARE.
 // </copyright>
 // <summary>
-//   Defines the MandatoryAttribute command model type.
+//   Defines the AutoCompletableAttribute command model type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 namespace ObscureWare.Console.Commands.Model
 {
-    using System;
+    using System.Collections.Generic;
 
-    public class MandatoryAttribute : Attribute
+    public interface ICommandAutoCompletion
     {
-        public bool IsParameterMandatory { get; private set; }
-
-        public MandatoryAttribute(bool isParameterMandatory = true)
-        {
-            this.IsParameterMandatory = isParameterMandatory;
-        }
+        /// <summary>
+        /// Shall return list of auto-completion values for current context, already filled model, targeted auto-completable property and starting text
+        /// </summary>
+        /// <param name="contextObject">Current state context.</param>
+        /// <param name="runtimeModel">Model object built so far.</param>
+        /// <param name="targetPropertyName">Property name of model switch being under edition</param>
+        /// <param name="matchText">Already entered text for auto-completion of property.</param>
+        /// <returns></returns>
+        IEnumerable<string> AutoCompleteCommand(object contextObject, CommandModel runtimeModel, string targetPropertyName, string matchText);
     }
 }
