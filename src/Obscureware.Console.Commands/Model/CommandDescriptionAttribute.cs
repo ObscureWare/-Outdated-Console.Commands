@@ -34,9 +34,6 @@ namespace ObscureWare.Console.Commands.Model
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Property, AllowMultiple = false)]
     public class CommandDescriptionAttribute : Attribute
     {
-        /// <summary>Specifies the default value for the <see cref="CommandDescriptionAttribute"/> which is an empty string (""). This static field is read-only.</summary>
-        public static readonly CommandDescriptionAttribute Default = new CommandDescriptionAttribute(string.Empty);
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandDescriptionAttribute"/> class with a description.
         /// </summary>
@@ -81,15 +78,6 @@ namespace ObscureWare.Console.Commands.Model
         public override int GetHashCode()
         {
             return this.Description?.GetHashCode() ?? 0;
-        }
-
-        /// <summary>
-        /// Returns a value indicating whether this is the default <see cref="CommandDescriptionAttribute"/> instance.
-        /// </summary>
-        /// <returns>true, if this is the default <see cref="CommandDescriptionAttribute"/> instance; otherwise, false.</returns>
-        public override bool IsDefaultAttribute()
-        {
-            return ReferenceEquals(this, Default);
         }
     }
 }
